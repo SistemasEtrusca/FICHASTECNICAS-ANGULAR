@@ -7,6 +7,8 @@ import { AccesoriosComponent } from './layout/accesorios/accesorios.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DescriptionComponent } from './components/description/description.component';
+import { ImagenProductoComponent } from './components/imagen-producto/imagen-producto.component';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { DescriptionComponent } from './components/description/description.compo
     AccesoriosComponent,
     HeaderComponent,
     FooterComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    ImagenProductoComponent,
+    IngredientsComponent
   ],
   imports: [
     BrowserModule,
