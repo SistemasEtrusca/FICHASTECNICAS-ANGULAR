@@ -12,6 +12,7 @@ import { TableCharacteristicsComponent } from './components/table-characteristic
 import { CodebarComponent } from './components/codebar/codebar.component';
 import { CodeQRComponent } from './components/code-qr/code-qr.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
+import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-acc
     TableCharacteristicsComponent,
     CodebarComponent,
     CodeQRComponent,
-    LayoutAccesoriosComponent
+    LayoutAccesoriosComponent,
+    LayoutMaquinariaComponent
   ],
   imports: [
     BrowserModule,
