@@ -1,2 +1,23 @@
-<app-layout-maquinaria></app-layout-maquinaria>
-<app-layout-accesorios></app-layout-accesorios>
+
+<div class="container">
+<h1>Fichas técnicas</h1><br><br>
+
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <!-- Agrega más encabezados de columna según tus datos -->
+    </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let elemento of elementosConId">
+      <td>{{ elemento.id }}</td>
+      <td>{{ elemento.nombre }}</td>
+      <!-- Agrega más columnas según tus datos -->
+    </tr>
+  </tbody>
+</table>
+
+  
+</div>
