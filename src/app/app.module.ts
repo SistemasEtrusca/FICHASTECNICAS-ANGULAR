@@ -27,7 +27,7 @@ import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maq
     CodebarComponent,
     CodeQRComponent,
     LayoutAccesoriosComponent,
-    LayoutMaquinariaComponent
+    LayoutMaquinariaComponent,
   ],
   imports: [
     BrowserModule,
