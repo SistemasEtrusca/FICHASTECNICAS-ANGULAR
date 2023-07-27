@@ -14,6 +14,7 @@ import { CodebarComponent } from './components/codebar/codebar.component';
 import { CodeQRComponent } from './components/code-qr/code-qr.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maq
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
