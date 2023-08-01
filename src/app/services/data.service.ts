@@ -72,6 +72,5 @@ export class DataService {
       });
     });
   }
-
   // Puedes agregar más métodos según las necesidades de la aplicación.
 }

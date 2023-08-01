@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class menuMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
+  maquinariaSeleccionada: any; // Propiedad para almacenar el ítem de maquinaria seleccionado
 
   constructor(private dataService: DataService) { }
 
@@ -18,6 +19,11 @@ export class menuMaquinariaComponent implements OnInit {
     }).catch((error: any) => {
       console.error('Error al obtener datos de maquinaria:', error);
     });
+  }
+
+  seleccionarMaquinaria(item: any) {
+    this.maquinariaSeleccionada = item;
+    console.log('Maquinaria seleccionada:', this.maquinariaSeleccionada)
   }
 }
 

@@ -1,13 +1,15 @@
-<div class="container">
-  <h1>Información de Maquinaria</h1>
+<!-- Mueve el componente hijo fuera del bloque condicional *ngIf -->
 <ul>
   <li *ngFor="let item of maquinariaArray; let i = index">
-    <!-- Crea un enlace con la ruta dinámica que incluye el índice del elemento como parámetro -->
-    <a [routerLink]="['/maquinaria', i]">
+    <!-- Crea un enlace que llame al método para establecer el ítem de maquinaria seleccionado -->
+    <a (click)="seleccionarMaquinaria(item)">
       <strong>Nombre:</strong> {{ item.name }}, 
-      <strong>Clave:</strong> {{ item.keySap }}, 
-      <!-- Agrega las demás propiedades aquí según sea necesario -->
+      <strong>Clave:</strong> {{ item.keySap }}
     </a>
   </li>
 </ul>
-</div>
+
+<!-- Mueve esta línea fuera del bloque *ngIf -->
+<app-layout-maquinaria [maquinaria]="maquinariaSeleccionada"></app-layout-maquinaria>
+
+<!--<a [routerLink]="['/maquinaria', i]" (click)="seleccionarMaquinaria(item)"> -->
