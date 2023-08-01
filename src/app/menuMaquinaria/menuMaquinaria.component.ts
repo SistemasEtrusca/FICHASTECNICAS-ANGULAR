@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-layout-maquinaria',
-  templateUrl: './layout-maquinaria.component.html',
-  styleUrls: ['./layout-maquinaria.component.css']
+  selector: 'app-menuMaquinaria',
+  templateUrl: './menuMaquinaria.component.html',
+  styleUrls: ['./menuMaquinaria.component.css']
 })
-export class LayoutMaquinariaComponent {
+export class menuMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
 
   constructor(private dataService: DataService) { }
-  
-   ngOnInit() {
+
+  ngOnInit() {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
       this.maquinariaArray = maquinariaArray;
       console.log('Información de maquinariaArray:', this.maquinariaArray);
@@ -20,3 +20,6 @@ export class LayoutMaquinariaComponent {
     });
   }
 }
+
+
+

@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Información de Maquinaria</h1>
+<ul>
+  <li *ngFor="let item of maquinariaArray; let i = index">
+    <!-- Crea un enlace con la ruta dinámica que incluye el índice del elemento como parámetro -->
+    <a [routerLink]="['/maquinaria', i]">
+      <strong>Nombre:</strong> {{ item.name }}, 
+      <strong>Clave:</strong> {{ item.keySap }}, 
+      <!-- Agrega las demás propiedades aquí según sea necesario -->
+    </a>
+  </li>
+</ul>
+</div>
