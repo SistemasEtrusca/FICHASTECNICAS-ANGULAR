@@ -1,15 +1,21 @@
-<!-- Mueve el componente hijo fuera del bloque condicional *ngIf -->
-<ul>
-  <li *ngFor="let item of maquinariaArray; let i = index">
-    <!-- Crea un enlace que llame al método para establecer el ítem de maquinaria seleccionado -->
-    <a (click)="seleccionarMaquinaria(item)">
-      <strong>Nombre:</strong> {{ item.name }}, 
-      <strong>Clave:</strong> {{ item.keySap }}
-    </a>
-  </li>
-</ul>
-
-<!-- Mueve esta línea fuera del bloque *ngIf -->
-<app-layout-maquinaria [maquinaria]="maquinariaSeleccionada"></app-layout-maquinaria>
-
-<!--<a [routerLink]="['/maquinaria', i]" (click)="seleccionarMaquinaria(item)"> -->
+<div class="container">
+  <h2>Tabla de Máquinas</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre de la máquina</th>
+        <th>Marca</th>
+        <th>Keysap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Utilizamos *ngFor para iterar sobre maquinariaArray -->
+      <tr *ngFor="let maquina of maquinariaArray">
+        <td>{{ maquina.name }}</td>
+        <td>{{ maquina.brand }}</td>
+        <!-- Utilizamos routerLink para generar el enlace dinámico -->
+        <td><a [routerLink]="['/maquinaria', maquina.keySap]">{{ maquina.keySap }}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

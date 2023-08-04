@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-menuMaquinaria',
@@ -8,9 +9,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class menuMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
-  maquinariaSeleccionada: any; // Propiedad para almacenar el ítem de maquinaria seleccionado
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
@@ -21,11 +21,4 @@ export class menuMaquinariaComponent implements OnInit {
     });
   }
 
-  seleccionarMaquinaria(item: any) {
-    this.maquinariaSeleccionada = item;
-    console.log('Maquinaria seleccionada:', this.maquinariaSeleccionada)
-  }
 }
-
-
-

@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'maquinaria', component: menuMaquinariaComponent},
-  { path: 'maquinaria/:index', component: LayoutMaquinariaComponent },
+  { path: 'maquinaria/:keySap', component: LayoutMaquinariaComponent },
   // Otras rutas de tu aplicación...
   // Otras rutas de tu aplicación...
 ];
