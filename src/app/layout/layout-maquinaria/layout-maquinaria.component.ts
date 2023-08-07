@@ -28,7 +28,7 @@ export class LayoutMaquinariaComponent implements OnInit {
       const keySap = params.get('keySap');
       // Buscar la máquina correspondiente en maquinariaArray por el valor de keySap
       this.maquina = this.maquinariaArray.find(maquina => maquina.keySap === keySap);
-      console.log('Información de la máquina actual:', this.maquina);
+      console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
     });
   }
 }

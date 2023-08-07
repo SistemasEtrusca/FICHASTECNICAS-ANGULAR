@@ -1,8 +1,61 @@
-<h1>hola</h1>
-<h2>Detalle de la Máquina</h2>
-<div *ngIf="maquina">
-  <p>Nombre de la máquina: {{ maquina.name }}</p>
-  <p>Marca: {{ maquina.brand }}</p>
-  <p>Keysap: {{ maquina.keySap }}</p>
-  <!-- Puedes mostrar otras características de la máquina aquí -->
+<div *ngIf="maquina" class="">
+  <header>
+    <div class="float-left">
+      <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
+    </div>
+    <div class="d-flex justify-content-around">
+        <h1 style="font-weight: 700;">{{ maquina.name }}</h1>
+        <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Logo" id="icon-print">
+      </div>      
+    <div class="d-flex flex-wrap">
+      <table class="table">
+        <tr>
+          <td>Clave:</td>
+          <td>{{maquina.keySap}}</td>
+        </tr>
+        <tr>
+          <td>Marca:</td>
+          <td>{{maquina.brand}}</td>
+        </tr>
+        <tr>
+          <td>Modelo</td>
+          <td></td>
+        </tr>
+      </table>  
+      <table class="table">
+        <tr>
+          <td>Categoría</td>
+          <td>{{maquina.category}}</td>
+        </tr>
+        <tr>
+          <td>Subcategoría</td>
+          <td>{{maquina.category}}</td>
+        </tr>
+        <tr>
+          <td>Color</td>
+          <td>{{maquina.color}}</td>
+        </tr>
+      </table> 
+    </div>
+  </header>
+  <div class="container" id="contenedor-descripcion">
+    <h6>Descripción:</h6>
+    <p>{{maquina.description}}</p>
+  </div> 
+
+  <div class="container" id="contenedor-detalles-maquina">
+    <ul class="no-bullets">
+      <li><b>Voltaje:</b></li>
+      <li><b>Medidas:</b>{{maquina.volume}}cm x {{maquina.width}}cm x {{maquina.height}}cm</li>
+      <li><b>Peso:</b>{{maquina.weight}}gr</li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <img >
+  </div>
+
+  <div class="container" id="contenedor-garantia-producto">
+    <p><b>Garantía Etrusca:</b></p>
+  </div>
 </div>

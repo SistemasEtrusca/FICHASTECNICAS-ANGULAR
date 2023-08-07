@@ -3,3 +3,13 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+
+/* Codigo generico para header */
+#logo{
+    height: 20%;
+    width: 20%;
+}
+#icon-print{
+    height: 10%;
+    width: 10%;
+}

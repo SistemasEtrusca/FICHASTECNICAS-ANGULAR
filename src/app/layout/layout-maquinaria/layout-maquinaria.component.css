@@ -1,0 +1,23 @@
+header{
+    background-color: #16CED0;
+}
+
+#contenedor-descripcion{
+    background-color: rgba(22, 206, 208, 0.39);
+    border-radius: 10px; /* Border radius para redondear las esquinas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra: offsetX offsetY blurRadius color */
+    padding: 20px; /* Opcional: Agregar un poco de espacio interno para el contenido */
+}
+
+/* Elimina los estilos de viñetas predeterminados */
+.no-bullets {
+    list-style-type: none;
+  }
+  
+  /* Añade un poco de espaciado y otros estilos si lo deseas */
+  .no-bullets li {
+    padding-left: 20px; /* Agrega un poco de espacio a la izquierda para simular una sangría */
+    margin-bottom: 5px; /* Agrega espacio entre elementos de la lista */
+    /* Puedes agregar otros estilos como color de texto, tamaño de fuente, etc. aquí */
+  }
+  
