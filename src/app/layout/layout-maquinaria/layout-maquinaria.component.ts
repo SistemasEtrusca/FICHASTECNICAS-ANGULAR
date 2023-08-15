@@ -23,12 +23,24 @@ export class LayoutMaquinariaComponent implements OnInit {
     });
   }
 
+  isMultipleImages(images: string[]): boolean {
+    return images.length > 1;
+  }
+
   getMaquinaFromRoute(): void {
     this.route.paramMap.subscribe(params => {
       const keySap = params.get('keySap');
       // Buscar la máquina correspondiente en maquinariaArray por el valor de keySap
       this.maquina = this.maquinariaArray.find(maquina => maquina.keySap === keySap);
       console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
-    });
+      
+      // Corrige el formato de urlArticle si es necesario
+      this.maquina.urlArticle = this.maquina.urlArticle
+        .replace("[", "")
+        .replace("]", "")
+        .replace(/'/g, "")
+        .trim();
+      return this.maquina;
+    }); 
   }
 }

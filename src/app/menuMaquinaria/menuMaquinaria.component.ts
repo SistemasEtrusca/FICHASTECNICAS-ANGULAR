@@ -7,6 +7,8 @@ import { DataService } from '../services/data.service';
   templateUrl: './menuMaquinaria.component.html',
   styleUrls: ['./menuMaquinaria.component.css']
 })
+
+
 export class menuMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
 

@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;800&display=swap');
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
 }
 
 /* Codigo generico para header */
-#logo{
-    height: 20%;
-    width: 20%;
-}
-#icon-print{
+#logo {
     height: 10%;
     width: 10%;
+}
+
+#icon-print {
+    height: 35px;
+    width: 35px;
 }
