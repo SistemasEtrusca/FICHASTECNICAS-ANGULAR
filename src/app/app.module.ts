@@ -14,6 +14,10 @@ import { CodebarComponent } from './components/codebar/codebar.component';
 import { CodeQRComponent } from './components/code-qr/code-qr.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
+import { DataService } from './services/data.service';
+import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +32,18 @@ import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maq
     CodeQRComponent,
     LayoutAccesoriosComponent,
     LayoutMaquinariaComponent,
+    menuMaquinariaComponent,
+    NavbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
