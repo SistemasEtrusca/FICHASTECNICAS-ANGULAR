@@ -40,14 +40,40 @@ export class DataService {
 
   async fetchDataFromApi(apiUrl: string): Promise<any> {
     try {
+      const dataFromStorage = localStorage.getItem('data');
+      const lastUpdate = localStorage.getItem('lastUpdate');
+      const currentDate = new Date();
+
+      if (dataFromStorage && lastUpdate && !this.hasPassedADay(lastUpdate, currentDate)) {
+        console.log('Obteniendo datos almacenados en localStorage');
+        return JSON.parse(dataFromStorage);
+      }
+
       const response = await fetch(apiUrl);
       if (!response.ok) {
         throw new Error(`HTTP error, status ${response.status}`);
       }
-      return await response.json();
+
+      const newData = await response.json();
+      localStorage.setItem('data', JSON.stringify(newData));
+      localStorage.setItem('lastUpdate', this.formatDate(currentDate));
+
+      console.log('Datos actualizados y guardados en localStorage');
+      return newData;
+
     } catch (error) {
       throw new Error(`Error fetching data from API: ${error}`);
     }
+  }
+
+  hasPassedADay(lastUpdate: string, currentDate: Date): boolean {
+    const lastUpdateDate = new Date(lastUpdate);
+    const oneDay = 24 * 60 * 60 * 1000; // Un día en milisegundos
+    return currentDate.getTime() - lastUpdateDate.getTime() < oneDay;
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString(); // Puedes cambiar el formato según tus preferencias
   }
 
   fetchAllDataFromApis(): Promise<any[]> {
