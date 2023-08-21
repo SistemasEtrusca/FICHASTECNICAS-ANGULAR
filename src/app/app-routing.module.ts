@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.component';
 import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
 import { LayoutInsumosComponent } from './layout/layout-insumos/layout-insumos.component';
+import { MenuAccesoriosComponent } from './menu-accesorios/menu-accesorios.component';
+import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 
 
 const routes: Routes = [
@@ -15,8 +17,8 @@ const routes: Routes = [
   { path: 'maquinaria/:keySap', component: LayoutMaquinariaComponent },
   { path: 'insumos', component: MenuInsumosComponent},
   { path: 'insumos/:keySap', component: LayoutInsumosComponent},
-  // Otras rutas de tu aplicación...
-  // Otras rutas de tu aplicación...
+  { path: 'accesorios', component: MenuAccesoriosComponent },
+  { path: 'accesorios/:keySap', component: LayoutAccesoriosComponent},
 ];
 
 @NgModule({

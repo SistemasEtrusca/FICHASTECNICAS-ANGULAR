@@ -13,6 +13,7 @@ import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.compone
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
+import { MenuAccesoriosComponent } from './menu-accesorios/menu-accesorios.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
     NavbarComponent,
     HomeComponent,
     MenuInsumosComponent,
+    MenuAccesoriosComponent,
   ],
   imports: [
     BrowserModule,
