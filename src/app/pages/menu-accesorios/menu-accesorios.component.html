@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>Tabla de Accesorios</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre del accesorio</th>
+                <th>Marca</th>
+                <th>Keysap</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Utilizamos *ngFor para iterar sobre maquinariaArray -->
+            <tr *ngFor="let accesorio of accesoriosArray">
+                <td>{{ accesorio.name }}</td>
+                <td>{{ accesorio.brand }}</td>
+                <!-- Utilizamos routerLink para generar el enlace dinámico -->
+                <td><a [routerLink]="['/accesorios', accesorio.keySap]">{{ accesorio.keySap }}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
