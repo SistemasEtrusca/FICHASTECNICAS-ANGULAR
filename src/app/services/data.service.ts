@@ -7,6 +7,7 @@ export class DataService {
   data: any[] | undefined;
   maquinariaArray: any[] = []; // Propiedad para almacenar maquinariaArray
   insumosArray: any[] = [];// Propiedad para almacenar insumosArray
+  accesoriosArray: any[] = [] //Propiedad para almacenar accesoriosArray
 
 constructor() {
     this.fetchAllDataFromApis().then((data: any[]) => {
@@ -35,10 +36,29 @@ constructor() {
 
       //console.log('Maquinaria como array de objetos:', this.maquinariaArray);
 
+      //Accesorios: convertir this.data[1] en un array de objetos desestructurado;
+      this.accesoriosArray = this.data[1].map((item: any) => ({
+        name: item.name,
+        keysap: item.keySap,
+        brand: item.brand,
+        category: item.category,
+        subCategory: item.subCategory,
+        description: item.description,
+        barCode: item.barCode,
+        color: item.color,
+        urlArticle: item.urlArticle,
+        weight: item.weight,
+        width: item.width,
+        volume: item.volume,
+      }))
+
+      console.log('Accesorios como array de objetos:', this.accesoriosArray);
+
       // Insumos: convertir this.data[0] en un array de objetos desestructurado;
       this.insumosArray = this.data[0].map((item: any) => ({
         name: item.name,
         keySap: item.keySap,
+        barcode: item.barcode,
         brand: item.brand,
         category: item.category,
         flavor: item.flavor,
@@ -127,6 +147,17 @@ constructor() {
     return new Promise<any[]>((resolve, reject) => {
       this.fetchAllDataFromApis().then(() => {
         resolve(this.insumosArray);
+      }).catch((error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  //Método para obtener la información procesada y formateada de accesoriosArray
+  getAccesorios(): Promise<any[]> {
+    return new Promise<any[]>((resolve, reject) => {
+      this.fetchAllDataFromApis().then(() => {
+        resolve(this.accesoriosArray);
       }).catch((error: any) => {
         reject(error);
       });
