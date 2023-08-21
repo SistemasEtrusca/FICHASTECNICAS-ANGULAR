@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-layout-maquinaria',
@@ -11,8 +12,13 @@ import { DataService } from '../../services/data.service';
 export class LayoutMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
   maquina: any; // Variable para almacenar la máquina actual
+  extractedUrls: any;
 
-  constructor( private dataService: DataService, private route: ActivatedRoute ) { }
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+  ) { }
 
   ngOnInit(): void {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
@@ -34,14 +40,32 @@ export class LayoutMaquinariaComponent implements OnInit {
       // Buscar la máquina correspondiente en maquinariaArray por el valor de keySap
       this.maquina = this.maquinariaArray.find(maquina => maquina.keySap === keySap);
       //console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
-      
-      // Corrige el formato de urlArticle si es necesario
-      this.maquina.urlArticle = this.maquina.urlArticle
-        .replace("[", "")
-        .replace("]", "")
-        .replace(/'/g, "")
-        .trim();
-      return this.maquina;
-    }); 
+
+      // Si hay urlArticle y no hemos extraído las URLs aún
+      if (this.maquina && this.maquina.urlArticle ) {
+        this.extractUrlsFromString(this.maquina.urlArticle);
+        console.log(this.maquina.urlArticle);
+      }
+    });
+  }
+
+  extractUrlsFromString(input: string): void {
+    const cleanedInput = input
+    .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
+
+  // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
+  if (cleanedInput.trim().length > 0) {
+    const urls = cleanedInput
+      .split(',')
+      .map(url => url.trim());
+
+    this.extractedUrls = urls;
+  } else {
+    this.extractedUrls = []; // No hay URLs válidas
+  }
+}
+
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

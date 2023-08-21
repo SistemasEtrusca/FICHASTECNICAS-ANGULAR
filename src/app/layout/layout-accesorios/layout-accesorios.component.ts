@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-layout-accesorios',
@@ -9,10 +10,15 @@ import { DataService } from '../../services/data.service';
 })
 
 export class LayoutAccesoriosComponent {
-  accesoriosArray: any[] =[];
+  accesoriosArray: any[] = [];
   accesorio: any; // Variable para almacenar el accesorio actual
+  extractedUrls: any;
 
-  constructor( private dataService: DataService, private route: ActivatedRoute) { }
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+  ) { }
 
   ngOnInit(): void {
     this.dataService.getAccesorios().then((accesoriosArray: any[]) => {
@@ -34,14 +40,31 @@ export class LayoutAccesoriosComponent {
       // Buscar el accesorio correspondiente en maquinariaArray por el valor de keySap
       this.accesorio = this.accesoriosArray.find(accesorio => accesorio.keySap === keySap);
       console.log('Información de la máquina actual:', this.accesorio, 'foto:', this.accesorio.urlArticle);
-      
-      // Corrige el formato de urlArticle si es necesario
-      this.accesorio.urlArticle = this.accesorio.urlArticle
-        .replace("[", "")
-        .replace("]", "")
-        .replace(/'/g, "")
-        .trim();
-      return this.accesorio;
-    }); 
+
+      // Si hay urlArticle y no hemos extraído las URLs aún
+      if (this.accesorio && this.accesorio.urlArticle) {
+        this.extractUrlsFromString(this.accesorio.urlArticle);
+        console.log(this.accesorio.urlArticle);
+      }
+    });
+  }
+
+  extractUrlsFromString(input: string): void {
+    const cleanedInput = input
+      .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
+
+    // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
+    if (cleanedInput.trim().length > 0) {
+      const urls = cleanedInput
+        .split(',')
+        .map(url => url.trim());
+
+      this.extractedUrls = urls;
+    } else {
+      this.extractedUrls = []; // No hay URLs válidas
+    }
+  }
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

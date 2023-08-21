@@ -34,16 +34,18 @@
     </ul>
   </div>
 
-  <div class="container contenedor-imagen">
-    <img [src]="maquina.urlArticle" alt="Imagen">
-  </div>
+  <div class="container d-flex flex-wrap justify-content-center contenedor-imagenes my-4" *ngIf="maquina && extractedUrls.length > 0">
+    <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
+      <img [src]="sanitizeUrl(url)" class="img-fluid">
+    </div>
+  </div>  
 
-  <div class="container" id="contenedor-garantia-producto">
+  <div class="container my-4" id="contenedor-garantia-producto">
     <p><b>Garantía Etrusca:</b></p>
   </div>
 </div>
 
-<div class="d-flex flex-wrap justify-content-between align-items-center">
+<div class="container d-flex flex-wrap justify-content-between align-items-center my-4">
   <div class="container codeBar my-3">
     <img class="" alt="..." src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Example_barcode.svg">
   </div>

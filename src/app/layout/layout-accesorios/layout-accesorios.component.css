@@ -24,11 +24,9 @@ header {
     list-style-type: none;
 }
 
-.contenedor-imagen {}
-
-img {
-    height: 100%;
-    width: 100%;
+.contenedor-imagen {
+    width: 15.125rem;
+    height: 17.25rem;
 }
 
 .qr-code {

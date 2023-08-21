@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-layout-insumos',
@@ -11,17 +12,22 @@ import { DataService } from 'src/app/services/data.service';
 export class LayoutInsumosComponent implements OnInit {
   insumosArray: any[] = [];
   insumo: any; // Variable para almacenar el insumo actual
+  extractedUrls: any;
 
-  constructor( private dataService: DataService, private route: ActivatedRoute ) { }
+  constructor(
+    private dataService: DataService, 
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+  ) { }
 
   ngOnInit(): void {
-      this.dataService.getInsumos().then((insumosArray: any[]) => {
-        this.insumosArray = insumosArray;
-        console.log('Información de insumosArray', this.insumosArray);
-        this.getInsumoFromRoute(); //Llamamos a la función para obtener el insumo actual
-      }).catch((error: any) => {
-        console.error('Error al obtener datos de insumo', error);
-      })
+    this.dataService.getInsumos().then((insumosArray: any[]) => {
+      this.insumosArray = insumosArray;
+      console.log('Información de insumosArray', this.insumosArray);
+      this.getInsumoFromRoute(); //Llamamos a la función para obtener el insumo actual
+    }).catch((error: any) => {
+      console.error('Error al obtener datos de insumo', error);
+    })
   }
 
   isMultipleImages(images: string[]): boolean {
@@ -35,13 +41,31 @@ export class LayoutInsumosComponent implements OnInit {
       this.insumo = this.insumosArray.find(insumo => insumo.keySap === keySap);
       console.log('Información del insumo actual:', this.insumo, 'foto', this.insumo.urlArticle);
 
-      //Corrige el formato de urlArticule si es necesario
-      this.insumo.urlArticle = this.insumo.urlArticle
-        .replace("[", "")
-        .replace("]", "")
-        .replace(/'/g, "")
-        .trim();
-        return this.insumo
+      // Si hay urlArticle y no hemos extraído las URLs aún
+      if (this.insumo && this.insumo.urlArticle) {
+        this.extractUrlsFromString(this.insumo.urlArticle);
+        console.log(this.insumo.urlArticle);
+      }
     })
+  }
+
+  extractUrlsFromString(input: string): void {
+    const cleanedInput = input
+      .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
+
+    // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
+    if (cleanedInput.trim().length > 0) {
+      const urls = cleanedInput
+        .split(',')
+        .map(url => url.trim());
+
+      this.extractedUrls = urls;
+    } else {
+      this.extractedUrls = []; // No hay URLs válidas
+    }
+  }
+
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

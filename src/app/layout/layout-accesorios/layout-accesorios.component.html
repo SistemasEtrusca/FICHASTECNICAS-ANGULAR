@@ -29,9 +29,13 @@
         </ul>
     </div>
 
-    <div class="container contenedor-imagen">
-        <img [src]="accesorio.urlArticle" alt="Imagen">
+    <div class="container d-flex flex-wrap justify-content-center contenedor-imagenes my-4"
+        *ngIf="accesorio && extractedUrls.length > 0">
+        <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
+            <img [src]="sanitizeUrl(url)" class="img-fluid">
+        </div>
     </div>
+
 
 </div>
 
