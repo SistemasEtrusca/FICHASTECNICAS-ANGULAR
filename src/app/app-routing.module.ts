@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
 import { HomeComponent } from './home/home.component';
 import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.component';
+import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
+import { LayoutInsumosComponent } from './layout/layout-insumos/layout-insumos.component';
 
 
 const routes: Routes = [
@@ -11,6 +13,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'maquinaria', component: menuMaquinariaComponent},
   { path: 'maquinaria/:keySap', component: LayoutMaquinariaComponent },
+  { path: 'insumos', component: MenuInsumosComponent},
+  { path: 'insumos/:keySap', component: LayoutInsumosComponent},
   // Otras rutas de tu aplicación...
   // Otras rutas de tu aplicación...
 ];

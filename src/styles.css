@@ -14,3 +14,13 @@ body {
     height: 35px;
     width: 35px;
 }
+
+.qr-code {
+    width: 300px;
+    height: 300px;
+}
+
+.barCode {
+    width: 50px;
+    height: 30px;
+}

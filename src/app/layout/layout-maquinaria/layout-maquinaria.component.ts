@@ -7,16 +7,17 @@ import { DataService } from '../../services/data.service';
   templateUrl: './layout-maquinaria.component.html',
   styleUrls: ['./layout-maquinaria.component.css']
 })
+
 export class LayoutMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
   maquina: any; // Variable para almacenar la máquina actual
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) { }
+  constructor( private dataService: DataService, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
       this.maquinariaArray = maquinariaArray;
-      console.log('Información de maquinariaArray:', this.maquinariaArray);
+      //console.log('Información de maquinariaArray:', this.maquinariaArray);
       this.getMaquinaFromRoute(); // Llamamos a la función para obtener la máquina actual
     }).catch((error: any) => {
       console.error('Error al obtener datos de maquinaria:', error);
@@ -32,7 +33,7 @@ export class LayoutMaquinariaComponent implements OnInit {
       const keySap = params.get('keySap');
       // Buscar la máquina correspondiente en maquinariaArray por el valor de keySap
       this.maquina = this.maquinariaArray.find(maquina => maquina.keySap === keySap);
-      console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
+      //console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
       
       // Corrige el formato de urlArticle si es necesario
       this.maquina.urlArticle = this.maquina.urlArticle
