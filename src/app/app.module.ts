@@ -9,11 +9,12 @@ import { AppComponent } from './app.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
 import { DataService } from './services/data.service';
-import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { menuMaquinariaComponent } from './pages/menuMaquinaria/menuMaquinaria.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
-import { MenuAccesoriosComponent } from './menu-accesorios/menu-accesorios.component';
+import { MenuInsumosComponent } from './pages/menu-insumos/menu-insumos.component';
+import { MenuAccesoriosComponent } from './pages/menu-accesorios/menu-accesorios.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MenuAccesoriosComponent } from './menu-accesorios/menu-accesorios.compo
     LayoutMaquinariaComponent,
     menuMaquinariaComponent,
     NavbarComponent,
+    FooterComponent,
     HomeComponent,
     MenuInsumosComponent,
     MenuAccesoriosComponent,

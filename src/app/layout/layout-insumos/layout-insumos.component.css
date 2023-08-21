@@ -32,3 +32,13 @@ img {
     height: 100%;
     width: 100%;
 }
+
+.qr-code {
+    width: 8.375rem;
+    height: 7.0625rem;
+}
+
+.codeBar {
+    width: 23.26088rem;
+    height: 8.18075rem;
+}

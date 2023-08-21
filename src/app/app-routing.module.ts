@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
 import { HomeComponent } from './home/home.component';
-import { menuMaquinariaComponent } from './menuMaquinaria/menuMaquinaria.component';
-import { MenuInsumosComponent } from './menu-insumos/menu-insumos.component';
+import { menuMaquinariaComponent } from './pages/menuMaquinaria/menuMaquinaria.component';
+import { MenuInsumosComponent } from './pages/menu-insumos/menu-insumos.component';
 import { LayoutInsumosComponent } from './layout/layout-insumos/layout-insumos.component';
-import { MenuAccesoriosComponent } from './menu-accesorios/menu-accesorios.component';
+import { MenuAccesoriosComponent } from './pages/menu-accesorios/menu-accesorios.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 
 
