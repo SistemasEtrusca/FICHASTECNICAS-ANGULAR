@@ -17,7 +17,7 @@ export class menuMaquinariaComponent implements OnInit {
   ngOnInit() {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
       this.maquinariaArray = maquinariaArray;
-      console.log('Información de maquinariaArray:', this.maquinariaArray);
+      //console.log('Información de maquinariaArray:', this.maquinariaArray);
     }).catch((error: any) => {
       console.error('Error al obtener datos de maquinaria:', error);
     });

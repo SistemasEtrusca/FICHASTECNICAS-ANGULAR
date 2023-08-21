@@ -39,7 +39,7 @@ constructor() {
       //Accesorios: convertir this.data[1] en un array de objetos desestructurado;
       this.accesoriosArray = this.data[1].map((item: any) => ({
         name: item.name,
-        keysap: item.keySap,
+        keySap: item.keySap,
         brand: item.brand,
         category: item.category,
         subCategory: item.subCategory,
@@ -52,7 +52,7 @@ constructor() {
         volume: item.volume,
       }))
 
-      console.log('Accesorios como array de objetos:', this.accesoriosArray);
+      //console.log('Accesorios como array de objetos:', this.accesoriosArray);
 
       // Insumos: convertir this.data[0] en un array de objetos desestructurado;
       this.insumosArray = this.data[0].map((item: any) => ({
