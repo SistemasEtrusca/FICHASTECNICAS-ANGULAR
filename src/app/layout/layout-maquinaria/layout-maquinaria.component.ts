@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-layout-maquinaria',
   templateUrl: './layout-maquinaria.component.html',
-  styleUrls: ['./layout-maquinaria.component.css']
+  styleUrls: ['./layout-maquinaria.component.css'],
 })
 
 export class LayoutMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = [];
   maquina: any; // Variable para almacenar la máquina actual
   extractedUrls: any;
+  paramValue: string | undefined;
+  qrCodeUrl: any;
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
+    private router: Router,
     private sanitizer: DomSanitizer,
   ) { }
 
@@ -42,28 +45,37 @@ export class LayoutMaquinariaComponent implements OnInit {
       //console.log('Información de la máquina actual:', this.maquina, 'foto:', this.maquina.urlArticle);
 
       // Si hay urlArticle y no hemos extraído las URLs aún
-      if (this.maquina && this.maquina.urlArticle ) {
+      if (this.maquina && this.maquina.urlArticle) {
         this.extractUrlsFromString(this.maquina.urlArticle);
         console.log(this.maquina.urlArticle);
       }
+
+      //Generar código QR
+      const dynamicUrl = this.generateDynamicUrl(this.maquina); // Cambia según tu lógica
+      this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
     });
+  }
+
+  generateDynamicUrl(maquina: any): string {
+    // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
+    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
   }
 
   extractUrlsFromString(input: string): void {
     const cleanedInput = input
-    .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
+      .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
 
-  // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
-  if (cleanedInput.trim().length > 0) {
-    const urls = cleanedInput
-      .split(',')
-      .map(url => url.trim());
+    // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
+    if (cleanedInput.trim().length > 0) {
+      const urls = cleanedInput
+        .split(',')
+        .map(url => url.trim());
 
-    this.extractedUrls = urls;
-  } else {
-    this.extractedUrls = []; // No hay URLs válidas
+      this.extractedUrls = urls;
+    } else {
+      this.extractedUrls = []; // No hay URLs válidas
+    }
   }
-}
 
   sanitizeUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);

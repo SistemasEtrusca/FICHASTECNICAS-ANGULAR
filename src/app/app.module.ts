@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { QrCodeModule } from 'ng-qrcode';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +35,7 @@ import { LoadingSpinerComponent } from './components/loading-spiner/loading-spin
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    QrCodeModule,
   ],
   providers: [
     DataService

@@ -51,9 +51,10 @@
   </div>
 
   <div class="container qr-code my-3">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Qrcode_wikipedia_fr_v2clean.png" class="img-fluid"
-      alt="...">
+    <qr-code [value]="qrCodeUrl" size="300" errorCorrectionLevel="M" display="image"></qr-code>
   </div>
+
+  <div class="space" style="height: 15cm;"></div>
 </div>
 
 
