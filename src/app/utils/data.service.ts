@@ -10,14 +10,14 @@ export class DataService {
   maquinariaArray: any[] = []; // Propiedad para almacenar maquinariaArray
   insumosArray: any[] = [];// Propiedad para almacenar insumosArray
   accesoriosArray: any[] = [] //Propiedad para almacenar accesoriosArray
-  
+
   private loadingSubject = new BehaviorSubject<boolean>(false);
   isLoading$ = this.loadingSubject.asObservable();
 
-constructor( private http: HttpClient ) {
+  constructor(private http: HttpClient) {
 
     this.fetchAllDataFromApis().then((data: any[]) => {
-      
+
       this.data = data;
 
       // Maquinaria: convertir this.data[2] en un array de objetos desestructurado
@@ -91,7 +91,7 @@ constructor( private http: HttpClient ) {
     this.loadingSubject.next(isLoading);
   }
 
-  async fetchDataFromApi(apiUrl: string,type: string): Promise<any> {
+  async fetchDataFromApi(apiUrl: string, type: string): Promise<any> {
     try {
       this.setLoading(true); // Activar el estado de carga
       const dataFromStorage = localStorage.getItem('data');
@@ -109,7 +109,7 @@ constructor( private http: HttpClient ) {
       }
 
       const newData = await response.json();
-      localStorage.setItem('data_'+type, JSON.stringify(newData));
+      localStorage.setItem('data_' + type, JSON.stringify(newData));
       localStorage.setItem('lastUpdate', this.formatDate(currentDate));
 
       console.log('Datos actualizados y guardados en localStorage');
@@ -147,33 +147,55 @@ constructor( private http: HttpClient ) {
   // Método para obtener la información procesada y formateada de maquinariaArray
   getMaquinaria(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      this.fetchAllDataFromApis().then(() => {
-        resolve(this.maquinariaArray);
-      }).catch((error: any) => {
-        reject(error);
-      });
+      const storedData = localStorage.getItem('data_maquinaria'); 
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        resolve(parsedData);
+      } else {
+        this.fetchAllDataFromApis().then(() => {
+          resolve(this.maquinariaArray);
+        }).catch((error: any) => {
+          reject(error);
+        });
+      }
     });
   }
 
   // Método para obtener la información procesada y formateada de insumosArray
   getInsumos(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      this.fetchAllDataFromApis().then(() => {
-        resolve(this.insumosArray);
-      }).catch((error: any) => {
-        reject(error);
-      });
+      const storedData = localStorage.getItem('data_insumos'); 
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        resolve(parsedData);
+      } else {
+        this.fetchAllDataFromApis().then(() => {
+          resolve(this.insumosArray);
+        }).catch((error: any) => {
+          reject(error);
+        });
+      }
     });
   }
+
 
   //Método para obtener la información procesada y formateada de accesoriosArray
   getAccesorios(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      this.fetchAllDataFromApis().then(() => {
-        resolve(this.accesoriosArray);
-      }).catch((error: any) => {
-        reject(error);
-      });
+      const storedData = localStorage.getItem('data_accesorios');
+      
+      if(storedData) {
+        const parsedData = JSON.parse(storedData);
+        resolve(parsedData);
+      } else {
+        this.fetchAllDataFromApis().then(() => {
+          resolve(this.accesoriosArray);
+        }).catch((error: any) => {
+          reject(error);
+        });
+      }
     });
   }
 }
