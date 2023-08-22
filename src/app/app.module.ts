@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuInsumosComponent } from './pages/menu-insumos/menu-insumos.component';
 import { MenuAccesoriosComponent } from './pages/menu-accesorios/menu-accesorios.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoadingSpinerComponent } from './components/loading-spiner/loading-spiner.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HomeComponent,
     MenuInsumosComponent,
     MenuAccesoriosComponent,
+    LoadingSpinerComponent,
   ],
   imports: [
     BrowserModule,

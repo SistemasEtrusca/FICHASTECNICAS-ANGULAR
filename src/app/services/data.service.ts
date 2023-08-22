@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +10,12 @@ export class DataService {
   maquinariaArray: any[] = []; // Propiedad para almacenar maquinariaArray
   insumosArray: any[] = [];// Propiedad para almacenar insumosArray
   accesoriosArray: any[] = [] //Propiedad para almacenar accesoriosArray
+  
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  isLoading$ = this.loadingSubject.asObservable();
 
-constructor() {
+constructor( private http: HttpClient ) {
+
     this.fetchAllDataFromApis().then((data: any[]) => {
       
       this.data = data;
@@ -81,8 +87,13 @@ constructor() {
     });
   }
 
+  private setLoading(isLoading: boolean) {
+    this.loadingSubject.next(isLoading);
+  }
+
   async fetchDataFromApi(apiUrl: string,type: string): Promise<any> {
     try {
+      this.setLoading(true); // Activar el estado de carga
       const dataFromStorage = localStorage.getItem('data');
       const lastUpdate = localStorage.getItem('lastUpdate');
       const currentDate = new Date();
@@ -106,6 +117,8 @@ constructor() {
 
     } catch (error) {
       throw new Error(`Error fetching data from API: ${error}`);
+    } finally {
+      this.setLoading(false); // Desactivar el estado de carga sin importar si hubo un error
     }
   }
 
