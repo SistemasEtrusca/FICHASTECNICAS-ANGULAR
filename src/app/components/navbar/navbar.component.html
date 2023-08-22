@@ -4,4 +4,7 @@
         <li><a routerLink="/insumos">Insumos</a></li>
         <li><a routerLink="/accesorios">Accesorios</a></li>
     </ul>
+    <button *ngIf="shouldShowBackButton()" (click)="goBack()" class="btn btn-light">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 </nav>

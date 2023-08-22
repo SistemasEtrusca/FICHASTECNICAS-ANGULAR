@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../utils/data.service';
 
 @Component({
   selector: 'app-menu-accesorios',
