@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import * as JsBarcode from 'jsbarcode';
+
+
 
 @Component({
   selector: 'app-layout-maquinaria',
@@ -15,6 +18,7 @@ export class LayoutMaquinariaComponent implements OnInit {
   extractedUrls: any;
   paramValue: string | undefined;
   qrCodeUrl: any;
+  
 
   constructor(
     private dataService: DataService,
@@ -53,6 +57,29 @@ export class LayoutMaquinariaComponent implements OnInit {
       //Generar código QR
       const dynamicUrl = this.generateDynamicUrl(this.maquina); // Cambia según tu lógica
       this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
+
+      // Generar código de barras si la propiedad barCode no es null
+      if (this.maquina && this.maquina.barCode !== null) {
+        const barcodeDiv = document.getElementById('codeBar');
+        console.log(barcodeDiv, this.maquina.barCode);
+        if (barcodeDiv) {
+          JsBarcode(barcodeDiv, this.maquina.barCode, {
+            margin: 10,
+            background: "#ffffff",
+            lineColor: "#000000",
+            width: 4,
+            height: 100,
+            textMargin: 4,
+            font: "monospace",
+          });
+        }
+      } else {
+        // Si barCode es null, ocultar el div
+        const barcodeDiv = document.getElementById('codeBar');
+        if (barcodeDiv) {
+          barcodeDiv.style.display = 'none';
+        }
+      }
     });
   }
 

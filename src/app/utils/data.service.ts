@@ -23,7 +23,7 @@ export class DataService {
       // Maquinaria: convertir this.data[2] en un array de objetos desestructurado
       this.maquinariaArray = this.data[2].map((item: any) => ({
         brand: item.brand,
-        barcode: item.barcode,
+        barCode: item.barcode,
         category: item.category,
         color: item.color,
         depto: item.depto,
@@ -64,7 +64,7 @@ export class DataService {
       this.insumosArray = this.data[0].map((item: any) => ({
         name: item.name,
         keySap: item.keySap,
-        barcode: item.barcode,
+        barCode: item.barcode,
         brand: item.brand,
         category: item.category,
         flavor: item.flavor,
