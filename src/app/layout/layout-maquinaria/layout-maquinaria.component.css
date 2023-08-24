@@ -25,8 +25,8 @@ header {
 }
 
 #contenedor360 {
-  width: 600px;
-  height: 800px;
+  width: 50vw;
+  height: 600px;
 } 
 
 #codeBar {
@@ -34,3 +34,7 @@ header {
   max-width: 300px; /* Establece un ancho máximo según tu diseño */
   height: auto; /* Ajusta la altura automáticamente según el ancho */
 } 
+
+.d-none {
+  display: none !important;
+}

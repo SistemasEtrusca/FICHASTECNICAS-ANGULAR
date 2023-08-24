@@ -33,14 +33,46 @@
       <li><b>Peso: </b>{{maquina.weight}}gr</li>
     </ul>
   </div>
+  <div class="container" >
+  <div class="row">
+    <div class="col-md-12" id="imagenes-carrusel"  [ngClass]="{'d-none': hideImages}">
+      <carousel *ngIf="maquina && extractedUrls.length > 0">
+        <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
+          <img [src]="sanitizeUrl(url)" class="img-fluid">
+        </slide>
+      </carousel>
+    </div>
+    <div class="col-md-12" id="360" [ngClass]="{'d-none': hide360}">
+      
+  <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360" frameborder="0"></iframe>
 
+    </div>
+  </div>
+ 
+  </div>
+  <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-item" *ngIf="maquina && extractedUrls.length > 0">
+      <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
+        <img [src]="sanitizeUrl(url)" class="img-fluid">
+      </div>
+      
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div> -->
+
+<!-- 
   <div class="container d-flex flex-wrap justify-content-center contenedor-imagenes my-4" *ngIf="maquina && extractedUrls.length > 0">
     <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
       <img [src]="sanitizeUrl(url)" class="img-fluid">
     </div>
-  </div>  
-
-  <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360" frameborder="0"></iframe>
+  </div>   -->
 
 
   <div class="d-none container my-4" id="contenedor-garantia-producto">
@@ -57,6 +89,5 @@
 
   <div class="space" style="height: 1cm;"></div>
 </div>
-
 
 

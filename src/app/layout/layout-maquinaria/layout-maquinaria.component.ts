@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+
 import * as JsBarcode from 'jsbarcode';
 
 @Component({
@@ -18,12 +20,16 @@ export class LayoutMaquinariaComponent implements OnInit {
   qrCodeUrl: any;
   imagen360: string | undefined;
   urlIframe: string | undefined;
+  hideImages = false; // Puedes inicializarlo según tus necesidades
+  hide360 = false; // Puedes inicializarlo según tus necesidades
+
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +93,13 @@ export class LayoutMaquinariaComponent implements OnInit {
     const urlIsValid = this.isValidURL(concatenatedURL);
 
     if (urlIsValid) {
+      this.hideImages = true;
+      const imagenes = document.getElementById('imagenes-carrusel');
+      if (imagenes) {
+        this.renderer.addClass(imagenes, 'd-none');
+      }
+
+
       const safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(concatenatedURL);   //Marca la URL como segura utilizando el DomSanitizer
       this.maquina.urlIframe = safeURL
     } else {
@@ -96,7 +109,7 @@ export class LayoutMaquinariaComponent implements OnInit {
 
   // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
   generateDynamicUrl(maquina: any): string {
-    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString(); 
+    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
   }
 
   //Limpia las url de las imagenes de la máquina
