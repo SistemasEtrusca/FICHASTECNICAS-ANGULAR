@@ -4,8 +4,6 @@ import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import * as JsBarcode from 'jsbarcode';
 
-
-
 @Component({
   selector: 'app-layout-maquinaria',
   templateUrl: './layout-maquinaria.component.html',
@@ -13,12 +11,13 @@ import * as JsBarcode from 'jsbarcode';
 })
 
 export class LayoutMaquinariaComponent implements OnInit {
-  maquinariaArray: any[] = [];
+  maquinariaArray: any[] = []; // Array de maquinas
   maquina: any; // Variable para almacenar la máquina actual
   extractedUrls: any;
   paramValue: string | undefined;
   qrCodeUrl: any;
-  
+  imagen360: string | undefined;
+  urlIframe: string | undefined;
 
   constructor(
     private dataService: DataService,
@@ -31,7 +30,7 @@ export class LayoutMaquinariaComponent implements OnInit {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
       this.maquinariaArray = maquinariaArray;
       //console.log('Información de maquinariaArray:', this.maquinariaArray);
-      this.getMaquinaFromRoute(); // Llamamos a la función para obtener la máquina actual
+      this.getMaquinaFromRoute(); // Llama a la función para obtener la máquina actual
     }).catch((error: any) => {
       console.error('Error al obtener datos de maquinaria:', error);
     });
@@ -81,13 +80,26 @@ export class LayoutMaquinariaComponent implements OnInit {
         }
       }
     });
+    //Imagenes 360°
+    this.imagen360 = this.maquina.keySap.toLowerCase().replace(/-/g, '_');
+    const concatenatedURL = `https://cafeetrusca.com/360/${this.imagen360}.html`;
+
+    const urlIsValid = this.isValidURL(concatenatedURL);
+
+    if (urlIsValid) {
+      const safeURL = this.sanitizer.bypassSecurityTrustResourceUrl(concatenatedURL);   //Marca la URL como segura utilizando el DomSanitizer
+      this.maquina.urlIframe = safeURL
+    } else {
+      console.log('La URL no es válida');
+    }
   }
 
+  // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
   generateDynamicUrl(maquina: any): string {
-    // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
-    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
+    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString(); 
   }
 
+  //Limpia las url de las imagenes de la máquina
   extractUrlsFromString(input: string): void {
     const cleanedInput = input
       .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
@@ -107,4 +119,12 @@ export class LayoutMaquinariaComponent implements OnInit {
   sanitizeUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
+
+  isValidURL(url: string): boolean {
+    // Utilizamos una expresión regular similar para verificar si la URL tiene un formato válido
+    const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    return urlPattern.test(url);
+  }
+
 }
+

@@ -24,10 +24,10 @@ header {
   list-style-type: none;
 }
 
-.contenedor-imagen {
-  width: 15.125rem;
-  height: 17.25rem;
-}
+#contenedor360 {
+  width: 600px;
+  height: 800px;
+} 
 
 #codeBar {
   width: 100%; /* Ajusta el ancho al 100% del contenedor */

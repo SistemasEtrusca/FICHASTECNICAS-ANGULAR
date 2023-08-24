@@ -40,7 +40,10 @@
     </div>
   </div>  
 
-  <div class="container my-4" id="contenedor-garantia-producto">
+  <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360" frameborder="0"></iframe>
+
+
+  <div class="d-none container my-4" id="contenedor-garantia-producto">
     <p><b>Garantía Etrusca:</b></p>
   </div>
 </div>
@@ -52,7 +55,7 @@
     <qr-code  [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image" ></qr-code>
   </div>
 
-  <div class="space" style="height: 10cm;"></div>
+  <div class="space" style="height: 1cm;"></div>
 </div>
 
 
