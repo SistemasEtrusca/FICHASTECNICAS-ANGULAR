@@ -35,25 +35,15 @@
             <img [src]="sanitizeUrl(url)" class="img-fluid">
         </div>
     </div>
-
-    <div class="container d-flex flex-wrap justify-content-around align-items-center my-4">
-        <!-- <svg class="codeBar my-3" id="codeBar"></svg> -->
-
-        <div class="my-3">
-            <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
-        </div>
-
-        <div class="space" style="height: 1cm;"></div>
-    </div>
 </div>
 
-<!-- <div class="d-flex flex-wrap justify-content-between align-items-center">
-    <div class="container codeBar my-3">
-        <img class="" alt="..." src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Example_barcode.svg">
+<div class="container d-flex flex-wrap justify-content-around align-items-center my-4">
+    <svg class="codeBar my-3" id="codeBars"></svg>
+
+    <div class="my-3">
+        <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
     </div>
 
-    <div class="container qr-code my-3">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Qrcode_wikipedia_fr_v2clean.png" class="img-fluid"
-            alt="...">
-    </div>
-</div> -->
+    <div class="space" style="height: 1cm;"></div>
+</div>
+

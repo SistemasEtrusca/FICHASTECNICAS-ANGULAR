@@ -29,12 +29,11 @@ header {
     height: 17.25rem;
 }
 
-.qr-code {
-    width: 8.375rem;
-    height: 7.0625rem;
-}
-
-.codeBar {
-    width: 23.26088rem;
-    height: 8.18075rem;
+#codeBar-accesorio {
+    width: 100%;
+    /* Ajusta el ancho al 100% del contenedor */
+    max-width: 300px;
+    /* Establece un ancho máximo según tu diseño */
+    height: auto;
+    /* Ajusta la altura automáticamente según el ancho */
 }

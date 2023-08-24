@@ -15,7 +15,6 @@ export class LayoutMaquinariaComponent implements OnInit {
   maquinariaArray: any[] = []; // Array de maquinas
   maquina: any; // Variable para almacenar la máquina actual
   extractedUrls: any;
-  paramValue: string | undefined;
   qrCodeUrl: any;
   imagen360: string | undefined;
   urlIframe: string | undefined;
@@ -145,7 +144,7 @@ export class LayoutMaquinariaComponent implements OnInit {
     if (contenidoParaImprimir) {
       const encabezado = document.querySelector('header'); 
       const pieDePagina = document.querySelector('footer'); 
-      
+
       if (encabezado) {
         encabezado.style.display = 'none';
       }

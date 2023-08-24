@@ -27,13 +27,16 @@ header {
 #contenedor360 {
   width: 50vw;
   height: 600px;
-} 
+}
 
 #codeBar {
-  width: 100%; /* Ajusta el ancho al 100% del contenedor */
-  max-width: 300px; /* Establece un ancho máximo según tu diseño */
-  height: auto; /* Ajusta la altura automáticamente según el ancho */
-} 
+  width: 100%;
+  /* Ajusta el ancho al 100% del contenedor */
+  max-width: 300px;
+  /* Establece un ancho máximo según tu diseño */
+  height: auto;
+  /* Ajusta la altura automáticamente según el ancho */
+}
 
 .d-none {
   display: none !important;

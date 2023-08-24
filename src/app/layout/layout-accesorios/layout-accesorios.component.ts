@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import * as JsBarcode from 'jsbarcode';
+
 @Component({
   selector: 'app-layout-accesorios',
   templateUrl: './layout-accesorios.component.html',
@@ -18,8 +20,9 @@ export class LayoutAccesoriosComponent {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
     private router: Router,
+    private sanitizer: DomSanitizer,
+   
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +55,31 @@ export class LayoutAccesoriosComponent {
       //Generar código QR
       const dynamicUrl = this.generateDynamicUrl(this.accesorio); // Cambia según tu lógica
       this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
+      
+      // Generar código de barras si la propiedad barCode no es null
+      if (this.accesorio && this.accesorio.barCode !== null) {
+        const barcodeDiv = document.getElementById('codeBars');
+        console.log(barcodeDiv, this.accesorio.barCode);
+        if (barcodeDiv) {
+          JsBarcode(barcodeDiv, this.accesorio.barCode, {
+            margin: 10,
+            background: "#ffffff",
+            lineColor: "#000000",
+            width: 4,
+            height: 100,
+            textMargin: 4,
+            font: "monospace",
+          });
+        }
+      } else {
+        // Si barCode es null, ocultar el div
+        const barcodeDiv = document.getElementById('codeBar');
+        if (barcodeDiv) {
+          barcodeDiv.style.display = 'none';
+        }
+      }
     });
+
   }
 
   //Limpia las url de las imagenes de accesorio
