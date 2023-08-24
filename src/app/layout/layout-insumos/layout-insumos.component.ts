@@ -57,9 +57,31 @@ export class LayoutInsumosComponent implements OnInit {
       //Generar código QR
       const dynamicUrl = this.generateDynamicUrl(this.insumo); // Cambia según tu lógica
       this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
-    })
+      
+      // Generar código de barras si la propiedad barCode no es null
+      if (this.insumo && this.insumo.barCode !== null) {
+        const barcodeDiv = document.getElementById('codeBarInsumo');
+        console.log(barcodeDiv, this.insumo.barCode);
+        if (barcodeDiv) {
+          JsBarcode(barcodeDiv, this.insumo.barCode, {
+            margin: 10,
+            background: "#ffffff",
+            lineColor: "#000000",
+            width: 4,
+            height: 100,
+            textMargin: 4,
+            font: "monospace",
+          });
+        }
+      } else {
+        // Si barCode es null, ocultar el div
+        const barcodeDiv = document.getElementById('codeBar');
+        if (barcodeDiv) {
+          barcodeDiv.style.display = 'none';
+        }
+      }
+    });
   }
-
   //Limpia las url de las imagenes del insumo
   extractUrlsFromString(input: string): void {
     const cleanedInput = input
