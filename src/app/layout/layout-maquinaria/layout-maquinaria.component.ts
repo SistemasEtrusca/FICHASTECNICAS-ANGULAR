@@ -1,8 +1,7 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 import * as JsBarcode from 'jsbarcode';
 
@@ -29,7 +28,8 @@ export class LayoutMaquinariaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private el: ElementRef,
   ) { }
 
   ngOnInit(): void {
@@ -139,5 +139,32 @@ export class LayoutMaquinariaComponent implements OnInit {
     return urlPattern.test(url);
   }
 
+  printContent(): void {
+    const contenidoParaImprimir = this.el.nativeElement.querySelector('#contenido-para-imprimir-maquina');
+
+    if (contenidoParaImprimir) {
+      const encabezado = document.querySelector('header'); 
+      const pieDePagina = document.querySelector('footer'); 
+      
+      if (encabezado) {
+        encabezado.style.display = 'none';
+      }
+
+      if (pieDePagina) {
+        pieDePagina.style.display = 'none';
+      }
+
+      window.print();
+
+      if (encabezado) {
+        encabezado.style.display = 'block';
+      }
+
+      if (pieDePagina) {
+        pieDePagina.style.display = 'block';
+      }
+    }
+  }
 }
+
 

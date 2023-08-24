@@ -81,7 +81,17 @@ export class DataService {
 
       //console.log('Insumos como array de objetos:', this.insumosArray);
 
-      console.log('Data obtenida:', this.data);
+      //console.log('Data obtenida:', this.data);
+      console.log(`
+  ---------------------
+ |                     |
+ |   ¡Ya hicimos la    |
+ |  petición de data!  |
+ |                     |
+  ---------------------
+          \\(^_^)/
+`);
+
     }).catch((error: any) => {
       console.error('Error al obtener data:', error);
     });
@@ -147,7 +157,7 @@ export class DataService {
   // Método para obtener la información procesada y formateada de maquinariaArray
   getMaquinaria(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      const storedData = localStorage.getItem('data_maquinaria'); 
+      const storedData = localStorage.getItem('data_maquinaria');
 
       if (storedData) {
         const parsedData = JSON.parse(storedData);
@@ -165,7 +175,7 @@ export class DataService {
   // Método para obtener la información procesada y formateada de insumosArray
   getInsumos(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
-      const storedData = localStorage.getItem('data_insumos'); 
+      const storedData = localStorage.getItem('data_insumos');
 
       if (storedData) {
         const parsedData = JSON.parse(storedData);
@@ -185,8 +195,8 @@ export class DataService {
   getAccesorios(): Promise<any[]> {
     return new Promise<any[]>((resolve, reject) => {
       const storedData = localStorage.getItem('data_accesorios');
-      
-      if(storedData) {
+
+      if (storedData) {
         const parsedData = JSON.parse(storedData);
         resolve(parsedData);
       } else {

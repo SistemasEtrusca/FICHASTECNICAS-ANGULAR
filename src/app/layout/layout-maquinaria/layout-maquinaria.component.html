@@ -1,8 +1,9 @@
-<div *ngIf="maquina">
+<div *ngIf="maquina" id="contenido-para-imprimir-maquina">
   <header class="container">
     <div class="d-flex justify-content-between align-items-center">
       <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
-      <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Logo" id="icon-print">
+      <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Icon" id="icon-print"
+        (click)="printContent()">
     </div>
     <div class="d-flex justify-content-center">
       <h1 style="font-weight: 700;">{{ maquina.name }}</h1>
@@ -33,47 +34,21 @@
       <li><b>Peso: </b>{{maquina.weight}}gr</li>
     </ul>
   </div>
-  <div class="container" >
-  <div class="row">
-    <div class="col-md-12" id="imagenes-carrusel"  [ngClass]="{'d-none': hideImages}">
-      <carousel *ngIf="maquina && extractedUrls.length > 0">
-        <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
-          <img [src]="sanitizeUrl(url)" class="img-fluid">
-        </slide>
-      </carousel>
-    </div>
-    <div class="col-md-12" id="360" [ngClass]="{'d-none': hide360}">
-      
-  <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360" frameborder="0"></iframe>
-
-    </div>
-  </div>
- 
-  </div>
-  <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-item" *ngIf="maquina && extractedUrls.length > 0">
-      <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
-        <img [src]="sanitizeUrl(url)" class="img-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" id="imagenes-carrusel" [ngClass]="{'d-none': hideImages}">
+        <carousel *ngIf="maquina && extractedUrls.length > 0">
+          <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
+            <img [src]="sanitizeUrl(url)" class="img-fluid">
+          </slide>
+        </carousel>
       </div>
-      
+      <div class="col-md-12" id="360" [ngClass]="{'d-none': hide360}">
+        <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360"
+          frameborder="0"></iframe>
+      </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div> -->
-
-<!-- 
-  <div class="container d-flex flex-wrap justify-content-center contenedor-imagenes my-4" *ngIf="maquina && extractedUrls.length > 0">
-    <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
-      <img [src]="sanitizeUrl(url)" class="img-fluid">
-    </div>
-  </div>   -->
-
+  </div>
 
   <div class="d-none container my-4" id="contenedor-garantia-producto">
     <p><b>Garantía Etrusca:</b></p>
@@ -84,10 +59,8 @@
   <svg class="codeBar my-3" id="codeBar"></svg>
 
   <div class="my-3">
-    <qr-code  [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image" ></qr-code>
+    <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
   </div>
 
   <div class="space" style="height: 1cm;"></div>
 </div>
-
-

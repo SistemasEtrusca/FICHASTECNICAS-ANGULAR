@@ -17,7 +17,7 @@ export class MenuInsumosComponent implements OnInit {
   ngOnInit() {
     this.dataService.getInsumos().then((insumosArray: any[]) => {
       this.insumosArray = insumosArray;
-      console.log('Información de insumosArray:', this.insumosArray );
+      //console.log('Información de insumosArray:', this.insumosArray );
     }).catch((error: any) => {
       console.error('Error al obtener datos de insumos:', error);
     })

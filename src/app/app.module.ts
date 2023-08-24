@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutAccesoriosComponent } from './layout/layout-accesorios/layout-accesorios.component';
 import { LayoutMaquinariaComponent } from './layout/layout-maquinaria/layout-maquinaria.component';
+import { LayoutInsumosComponent } from './layout/layout-insumos/layout-insumos.component';
 import { DataService } from './utils/data.service';
 import { menuMaquinariaComponent } from './pages/menuMaquinaria/menuMaquinaria.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -23,6 +24,7 @@ import { LoadingSpinerComponent } from './components/loading-spiner/loading-spin
     AppComponent,
     LayoutAccesoriosComponent,
     LayoutMaquinariaComponent,
+    LayoutInsumosComponent,
     menuMaquinariaComponent,
     NavbarComponent,
     FooterComponent,

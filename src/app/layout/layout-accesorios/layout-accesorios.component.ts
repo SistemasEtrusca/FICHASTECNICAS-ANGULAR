@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -13,11 +13,13 @@ export class LayoutAccesoriosComponent {
   accesoriosArray: any[] = [];
   accesorio: any; // Variable para almacenar el accesorio actual
   extractedUrls: any;
+  qrCodeUrl: any;
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -46,9 +48,14 @@ export class LayoutAccesoriosComponent {
         this.extractUrlsFromString(this.accesorio.urlArticle);
         console.log(this.accesorio.urlArticle);
       }
+
+      //Generar código QR
+      const dynamicUrl = this.generateDynamicUrl(this.accesorio); // Cambia según tu lógica
+      this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
     });
   }
 
+  //Limpia las url de las imagenes de accesorio
   extractUrlsFromString(input: string): void {
     const cleanedInput = input
       .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
@@ -67,4 +74,9 @@ export class LayoutAccesoriosComponent {
   sanitizeUrl(url: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
+
+    // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
+    generateDynamicUrl(maquina: any): string {
+      return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
+    }
 }
