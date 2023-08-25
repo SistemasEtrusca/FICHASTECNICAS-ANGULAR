@@ -143,9 +143,9 @@ export class DataService {
   }
 
   fetchAllDataFromApis(): Promise<any[]> {
-    const api1Url = 'https://sap.etrusca.shop:8082/api/FichaTecnica?Depto=3';
-    const api2Url = 'https://sap.etrusca.shop:8082/api/FichaTecnica?Depto=4';
-    const api3Url = 'https://sap.etrusca.shop:8082/api/FichaTecnica?Depto=5';
+    const api1Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=3';
+    const api2Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=4';
+    const api3Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=5';
 
     const api1Promise = this.fetchDataFromApi(api1Url, 'insumos');
     const api2Promise = this.fetchDataFromApi(api2Url, 'accesorios');
