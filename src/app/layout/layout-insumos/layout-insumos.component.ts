@@ -46,7 +46,7 @@ export class LayoutInsumosComponent implements OnInit {
       const keySap = params.get('keySap');
       // Buscar la información correspondiente en insumosArray por el valor de keySap
       this.insumo = this.insumosArray.find(insumo => insumo.keySap === keySap);
-      //console.log('Información del insumo actual:', this.insumo, 'foto', this.insumo.urlArticle);
+      console.log('Información del insumo actual:', this.insumo, 'foto', this.insumo.urlArticle);
 
       //Si hay urlArticle y no hemos extraído las URLs aún
       if (this.insumo && this.insumo.urlArticle) {

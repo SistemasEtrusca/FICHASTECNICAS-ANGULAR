@@ -18,19 +18,19 @@
     </header>
 
     <div class="container my-4" id="contenedor-descripcion">
-        <h6>Descripción:</h6>
+        <h6><b>Descripción:</b></h6>
         <p>{{insumo.description}}</p>
     </div>
 
     <div class="container" id="contenedor-detalles-insumo">
         <ul class="no-bullets">
-            <li><b>Presentación: {{ insumo.presentation }}</b></li>
-            <li><b>Contenido: </b></li>
+            <li><b>Presentación:</b> {{ insumo.salesUnit }}</li>
+            <li><b>Contenido: </b> {{ insumo.contNeto }}</li>
             <li><b>Medidas: </b>{{ insumo.width }}cm x {{ insumo.height }}cm</li>
             <li><b>Peso: </b>{{insumo.weight }}gr</li>
             <br>
-            <li><b>Certificaciones: </b></li>
-            <li><b>Observaciones: </b></li>
+            <li><b>Certificaciones: </b> {{ insumo.certification }}</li>
+            <li><b>Observaciones: </b> {{insumo.observations}} </li>
         </ul>
     </div>
 

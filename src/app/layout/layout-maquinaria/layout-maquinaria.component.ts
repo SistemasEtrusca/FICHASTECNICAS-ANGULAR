@@ -34,7 +34,7 @@ export class LayoutMaquinariaComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getMaquinaria().then((maquinariaArray: any[]) => {
       this.maquinariaArray = maquinariaArray;
-      //console.log('Información de maquinariaArray:', this.maquinariaArray);
+      console.log('Información de maquinariaArray:', this.maquinariaArray);
       this.getMaquinaFromRoute(); // Llama a la función para obtener la máquina actual
     }).catch((error: any) => {
       console.error('Error al obtener datos de maquinaria:', error);

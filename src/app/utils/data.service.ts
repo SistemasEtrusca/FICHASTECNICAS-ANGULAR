@@ -37,7 +37,9 @@ export class DataService {
         urlArticle: item.urlArticle,
         volume: item.volume,
         weight: item.weight,
-        width: item.width
+        width: item.width,
+        warranty: item.warranty,
+        voltage: item.voltage,
       }));
 
       //console.log('Maquinaria como array de objetos:', this.maquinariaArray);
@@ -71,10 +73,12 @@ export class DataService {
         description: item.description,
         presentation: item.presentation,
         urlArticle: item.urlArticle,
-        //content: item.content,
+        contNeto: item.contNeto,
         weight: item.weight,
         width: item.width,
         height: item.height,
+        certification: item.certification,
+        ingredients: item.ingredients,
         //observations: item.observations,
         //ingredients: item.ingredients
       }));

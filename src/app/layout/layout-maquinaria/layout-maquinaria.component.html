@@ -29,7 +29,7 @@
 
   <div class="container" id="contenedor-detalles-maquina">
     <ul class="no-bullets">
-      <li><b>Voltaje: </b></li>
+      <li><b>Voltaje: </b> {{ maquina.voltage}} </li>
       <li><b>Medidas: </b>{{ maquina.width}}cm x {{ maquina.height}}cm</li>
       <li><b>Peso: </b>{{maquina.weight}}gr</li>
     </ul>
@@ -50,8 +50,8 @@
     </div>
   </div>
 
-  <div class="d-none container my-4" id="contenedor-garantia-producto">
-    <p><b>Garantía Etrusca:</b></p>
+  <div class="container my-4" id="contenedor-garantia-producto"  [class.d-none]="maquina.warranty === null">
+    <p><b>Garantía Etrusca:</b> {{ maquina.warranty }}</p>
   </div>
 </div>
 
