@@ -1,0 +1,43 @@
+header {
+  background-color: #24D3FE;
+  padding: 20px;
+}
+
+#contenedor-descripcion {
+  background-color: #24D3FE33;
+  border-radius: 10px;
+  /* Border radius para redondear las esquinas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Sombra: offsetX offsetY blurRadius color */
+  padding: 20px;
+  /* Opcional: Agregar un poco de espacio interno para el contenido */
+}
+
+
+/* Elimina los estilos de viñetas predeterminados */
+.no-bullets {
+  list-style-type: none;
+}
+
+/* Elimina los estilos de viñetas predeterminados */
+.no-bullets {
+  list-style-type: none;
+}
+
+#contenedor360 {
+  width: 50vw;
+  height: 600px;
+}
+
+#codeBar {
+  width: 100%;
+  /* Ajusta el ancho al 100% del contenedor */
+  max-width: 300px;
+  /* Establece un ancho máximo según tu diseño */
+  height: auto;
+  /* Ajusta la altura automáticamente según el ancho */
+}
+
+.d-none {
+  display: none !important;
+}
