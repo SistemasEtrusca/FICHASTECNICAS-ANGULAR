@@ -1,4 +1,5 @@
-import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { CarouselComponent } from 'ngx-bootstrap/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -12,14 +13,18 @@ import * as JsBarcode from 'jsbarcode';
 })
 
 export class LayoutInsumosComponent implements OnInit {
+  @ViewChild('carousel') carousel!: CarouselComponent;
+
   insumosArray: any[] = [];
   insumo: any; // Variable para almacenar el insumo actual
   extractedUrls: any;
   paramValue: string | undefined;
   qrCodeUrl: any;
+  marcasArray: any[] = [];
+  matchingMarca: any;
 
   constructor(
-    private dataService: DataService, 
+    private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
@@ -27,41 +32,60 @@ export class LayoutInsumosComponent implements OnInit {
     private el: ElementRef,
   ) { }
 
-  ngOnInit(): void {
-    this.dataService.getInsumos().then((insumosArray: any[]) => {
-      this.insumosArray = insumosArray;
+  async ngOnInit(): Promise<void> {
+    try {
+      this.insumosArray = await this.dataService.getInsumos();
       console.log('Información de insumosArray', this.insumosArray);
-      this.getInsumoFromRoute(); //Llamamos a la función para obtener el insumo actual
-    }).catch((error: any) => {
+
+      await this.getInsumoFromRoute(); // Esperar a que se complete la obtención del insumo actual
+    } catch (error) {
       console.error('Error al obtener datos de insumo', error);
-    })
+      // Maneja el error según tus necesidades
+    }
   }
 
   isMultipleImages(images: string[]): boolean {
     return images.length > 1;
   }
 
-  getInsumoFromRoute(): void {
-    this.route.paramMap.subscribe(params => {
+  async getInsumoFromRoute(): Promise<void> {
+    this.route.paramMap.subscribe(async params => {
       const keySap = params.get('keySap');
-      // Buscar la información correspondiente en insumosArray por el valor de keySap
       this.insumo = this.insumosArray.find(insumo => insumo.keySap === keySap);
-      console.log('Información del insumo actual:', this.insumo, 'foto', this.insumo.urlArticle);
+      console.log('Información del insumo actual:', this.insumo);
+
+      // Esperar a que se carguen los datos de marcas
+      await this.loadMarcasData();
+
+      // Buscar la marca correspondiente en marcasArray
+
+      // Convierte this.insumo.brand a un número
+      const brandId = Number(this.insumo.brand);
+
+      // Buscar la marca correspondiente en marcasArray
+      this.matchingMarca = this.marcasArray.find(marca => marca.id === brandId);
+
+      if (this.matchingMarca) {
+        console.log('Marca correspondiente:', this.matchingMarca, this.matchingMarca.name);
+        // Ahora puedes acceder a matchingMarca.image para mostrar la imagen en tu plantilla HTML
+      } else {
+        console.log('No se encontró una marca correspondiente.');
+      }
 
       //Si hay urlArticle y no hemos extraído las URLs aún
       if (this.insumo && this.insumo.urlArticle) {
         this.extractUrlsFromString(this.insumo.urlArticle);
-        console.log(this.insumo.urlArticle);
+        //console.log(this.insumo.urlArticle);
       }
 
       //Generar código QR
       const dynamicUrl = this.generateDynamicUrl(this.insumo); // Cambia según tu lógica
       this.qrCodeUrl = dynamicUrl; // Asigna la URL generada al valor del código QR
-      
+
       // Generar código de barras si la propiedad barCode no es null
       if (this.insumo && this.insumo.barCode !== null) {
         const barcodeDiv = document.getElementById('codeBarInsumo');
-        console.log(barcodeDiv, this.insumo.barCode);
+        //console.log(barcodeDiv, this.insumo.barCode);
         if (barcodeDiv) {
           JsBarcode(barcodeDiv, this.insumo.barCode, {
             margin: 10,
@@ -80,7 +104,18 @@ export class LayoutInsumosComponent implements OnInit {
           barcodeDiv.style.display = 'none';
         }
       }
+
     });
+  }
+
+  async loadMarcasData(): Promise<void> {
+    try {
+      this.marcasArray = await this.dataService.getMarcas();
+      console.log('Información de marcasArray', this.marcasArray);
+    } catch (error) {
+      console.error('Error al cargar datos de marcas', error);
+      // Puedes manejar el error de acuerdo a tus necesidades
+    }
   }
   //Limpia las url de las imagenes del insumo
   extractUrlsFromString(input: string): void {
@@ -92,7 +127,7 @@ export class LayoutInsumosComponent implements OnInit {
       const urls = cleanedInput
         .split(',')
         .map(url => url);
-       // console.log(urls);
+      // console.log(urls);
 
       this.extractedUrls = urls;
     } else {
@@ -106,8 +141,15 @@ export class LayoutInsumosComponent implements OnInit {
 
   // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
   generateDynamicUrl(insumo: any): string {
-    return this.router.createUrlTree(['/ruta', insumo.keySap]).toString();
+    return this.router.createUrlTree(['https://ficha-tecnica.cafeetrusca.com/insumos', insumo.keySap]).toString();
+  }
+
+  goToSlide(slideIndex: number): void {
+    this.carousel.selectSlide(slideIndex);
   }
 }
+
+
+
 
 

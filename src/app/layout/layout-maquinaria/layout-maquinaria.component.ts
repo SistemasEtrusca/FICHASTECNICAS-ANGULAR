@@ -108,7 +108,7 @@ export class LayoutMaquinariaComponent implements OnInit {
 
   // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
   generateDynamicUrl(maquina: any): string {
-    return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
+    return this.router.createUrlTree(['https://ficha-tecnica.cafeetrusca.com/maquinaria', maquina.keySap]).toString();
   }
 
   //Limpia las url de las imagenes de la máquina
@@ -136,33 +136,6 @@ export class LayoutMaquinariaComponent implements OnInit {
     // Utilizamos una expresión regular similar para verificar si la URL tiene un formato válido
     const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     return urlPattern.test(url);
-  }
-
-  printContent(): void {
-    const contenidoParaImprimir = this.el.nativeElement.querySelector('#contenido-para-imprimir-maquina');
-
-    if (contenidoParaImprimir) {
-      const encabezado = document.querySelector('header'); 
-      const pieDePagina = document.querySelector('footer'); 
-
-      if (encabezado) {
-        encabezado.style.display = 'none';
-      }
-
-      if (pieDePagina) {
-        pieDePagina.style.display = 'none';
-      }
-
-      window.print();
-
-      if (encabezado) {
-        encabezado.style.display = 'block';
-      }
-
-      if (pieDePagina) {
-        pieDePagina.style.display = 'block';
-      }
-    }
   }
 }
 

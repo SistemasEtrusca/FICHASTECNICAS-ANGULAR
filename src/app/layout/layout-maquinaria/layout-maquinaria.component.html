@@ -1,57 +1,92 @@
-<div *ngIf="maquina" id="contenido-para-imprimir-maquina">
-  <header class="container">
+<div *ngIf="maquina">
+  <header>
     <div class="d-flex justify-content-between align-items-center">
       <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
-      <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Icon" id="icon-print"
-        (click)="printContent()">
-    </div>
-    <div class="d-flex justify-content-center">
-      <h1 style="font-weight: 700;">{{ maquina.name }}</h1>
-    </div>
-    <div class="d-flex flex-row justify-content-between my-3">
-      <ul class="no-bullets">
-        <li><b>Clave: </b>{{maquina.keySap}}</li>
-        <li><b>Marca: </b>{{maquina.brand}}</li>
-        <li><b>Modelo: </b></li>
-      </ul>
-      <ul class="no-bullets">
-        <li><b>Categoría: </b>{{maquina.category}}</li>
-        <li><b>Subcategoría: </b>{{maquina.category}}</li>
-        <li><b>Color: </b>{{maquina.color}}</li>
-      </ul>
+      <!-- <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Icon" id="icon-print"-->
     </div>
   </header>
 
-  <div class="container my-4" id="contenedor-descripcion">
-    <h6>Descripción:</h6>
-    <p>{{maquina.description}}</p>
-  </div>
-
-  <div class="container" id="contenedor-detalles-maquina">
-    <ul class="no-bullets">
-      <li><b>Voltaje: </b> {{ maquina.voltage}} </li>
-      <li><b>Medidas: </b>{{ maquina.width}}cm x {{ maquina.height}}cm</li>
-      <li><b>Peso: </b>{{maquina.weight}}gr</li>
-    </ul>
-  </div>
   <div class="container">
     <div class="row">
-      <div class="col-md-12" id="imagenes-carrusel" [ngClass]="{'d-none': hideImages}">
+      <div class="col-md-6">
+        <div class="d-flex flex-column">
+          <h1 class="my-2" style="font-weight: 700;">{{ maquina.name }}</h1>
+          <h6 class="my-4">Descripción:</h6>
+          <p style="text-align: justify;">{{ maquina.description }}</p>
+        </div>
+      </div>
+      <div class="col-md-6" id="imagenes-carrusel" [ngClass]="{'d-none': hideImages}">
         <carousel *ngIf="maquina && extractedUrls.length > 0">
           <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
             <img [src]="sanitizeUrl(url)" class="img-fluid">
           </slide>
         </carousel>
       </div>
-      <div class="col-md-12" id="360" [ngClass]="{'d-none': hide360}">
+      <div class="col-md-6" id="360" [ngClass]="{'d-none': hide360}">
         <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360"
           frameborder="0"></iframe>
-      </div>
+      </div><br>
+
+      <table class="table my-5" style="text-align: center;">
+        <thead class="table-dark">
+          <tr>
+            <th colspan="2" style="text-align: center;">Características</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Clave</th>
+            <td> {{ maquina.keySap }} </td>
+          </tr>
+          <!-- <tr>
+             <th scope="row">Marca</th>
+             <td> {{ maquina.keySap }} </td> 
+          </tr>
+          <tr>
+            <th scope="row">Modelo</th> 
+            <td> {{ maquina.model }}</td>
+          </tr> -->
+          <tr>
+            <th scope="row">Cateogría</th>
+            <td> {{ maquina.category }}</td>
+          </tr>
+          <!-- <tr>
+            <th scope="row">Subcategoría</th>
+            <td> {{ maquina.subCategory }} </td>
+          </tr>
+          <tr>
+            <th scope="row">color</th>
+            <td> {{ maquina.color }} </td>
+          </tr> 
+          <tr>
+            <th scope="row">Voltaje</th>
+            <td> {{ maquina.voltage }} </td>
+          </tr> -->
+          <tr>
+            <th scope="row">Medidas</th>
+            <td>{{ maquina.width }}cm x {{ maquina.height }}cm</td>
+          </tr>
+          <tr>
+            <th scope="row">Peso</th>
+            <td> {{ maquina.weight }} gr </td>
+          </tr>
+          <!-- <tr>
+            <th scope="row"></th>
+            <td>  </td>
+          </tr> -->
+        </tbody>
+      </table>
+    
+
+
+
+
     </div>
   </div>
-
-  <div class="container my-4" id="contenedor-garantia-producto"  [class.d-none]="maquina.warranty === null">
-    <p><b>Garantía Etrusca:</b> {{ maquina.warranty }}</p>
+  <div class="container my-4" id="contenedor-detalles-maquina">
+    <ul class="no-bullets">
+      <li><b> Garantía: </b> {{ maquina.warranty }} </li>
+    </ul>
   </div>
 </div>
 

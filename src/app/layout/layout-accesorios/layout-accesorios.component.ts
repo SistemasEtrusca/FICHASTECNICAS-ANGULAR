@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CarouselComponent } from 'ngx-bootstrap/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -11,7 +12,9 @@ import * as JsBarcode from 'jsbarcode';
   styleUrls: ['./layout-accesorios.component.css']
 })
 
-export class LayoutAccesoriosComponent {
+export class LayoutAccesoriosComponent implements OnInit {
+  @ViewChild('carousel') carousel!: CarouselComponent;
+
   accesoriosArray: any[] = [];
   accesorio: any; // Variable para almacenar el accesorio actual
   extractedUrls: any;
@@ -104,6 +107,10 @@ export class LayoutAccesoriosComponent {
 
     // Ajusta 'ruta' al valor correcto de la ruta que estás utilizando en tus componentes
     generateDynamicUrl(maquina: any): string {
-      return this.router.createUrlTree(['/ruta', maquina.keySap]).toString();
+      return this.router.createUrlTree(['https://ficha-tecnica.cafeetrusca.com/accesorios', maquina.keySap]).toString();
+    }
+
+    goToSlide(slideIndex: number): void {
+      this.carousel.selectSlide(slideIndex);
     }
 }

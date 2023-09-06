@@ -1,54 +1,105 @@
 <div *ngIf="insumo">
-    <header class="container">
+    <header>
         <div class="d-flex justify-content-between align-items-center">
             <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
-            <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Logo" id="icon-print">
-        </div>
-        <div class="d-flex justify-content-center">
-            <h1 style="font-weight: 700;">{{ insumo.name }}</h1>
-        </div>
-        <div class="d-flex flex-row justify-content-between my-3">
-            <ul class="no-bullets">
-                <li><b>Clave: </b>{{insumo.keySap}}</li>
-                <li><b>Marca: </b>{{insumo.brand}}</li>
-                <li><b>Categoría: </b>{{insumo.category}}</li>
-                <li><b>Sabor: </b>{{insumo.flavor}}</li>
-            </ul>
+            <!-- <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Logo" id="icon-print"> -->
         </div>
     </header>
 
-    <div class="container my-4" id="contenedor-descripcion">
-        <h6><b>Descripción:</b></h6>
-        <p>{{insumo.description}}</p>
-    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex flex-column">
+                    <h1 class="my-2" style="font-weight: 700; text-align: left;">{{ insumo.name }}</h1>
+                    <h6 class="my-4"><b>Descripción:</b></h6>
+                    <p style="text-align: justify">{{insumo.description}}</p>
+                </div>
+            </div>
+            <!--mostrar imagenes-->
+            <div class="col-md-6  ">
+                <div class="row">
+                    <!-- Carrusel principal -->
+                    <div class="col-md-10">
+                        <carousel #carousel>
+                            <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
+                                <img [src]="sanitizeUrl(url)" class="d-block w-100" [alt]="'Imagen '" 
+                                [ngClass]="{'botella-torani': insumo.keySap.startsWith('IJA')}">
+                            </slide>
+                        </carousel>
+                    </div>
 
-    <div class="container" id="contenedor-detalles-insumo">
-        <ul class="no-bullets">
-            <li><b>Presentación:</b> {{ insumo.salesUnit }}</li>
-            <li><b>Contenido: </b> {{ insumo.contNeto }}</li>
-            <li><b>Medidas: </b>{{ insumo.width }}cm x {{ insumo.height }}cm</li>
-            <li><b>Peso: </b>{{insumo.weight }}gr</li>
-            <br>
-            <li><b>Certificaciones: </b> {{ insumo.certification }}</li>
-            <li><b>Observaciones: </b> {{insumo.observations}} </li>
-        </ul>
-    </div>
+                    <!-- Miniaturas en la derecha -->
+                    <div class="col-md-2 d-none d-sm-block">
+                        <div class="row">
+                            <div class="col-12" *ngFor="let url of extractedUrls; let i = index">
+                                <a href="javascript:void(0);" (click)="goToSlide(i)">
+                                    <img [src]="sanitizeUrl(url)" class="img-thumbnail" [alt]="'Miniatura '">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
 
-    <div class="container d-flex flex-wrap justify-content-center contenedor-imagenes my-4"
-        *ngIf="insumo && extractedUrls.length > 0">
-        <div *ngFor="let url of extractedUrls" class="contenedor-imagen">
-            <img [src]="sanitizeUrl(url)" class="img-fluid">
+            <table class="table my-5">
+                <thead class="table-dark">
+                    <tr>
+                        <th colspan="2" style="text-align: center;">Más características</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align: center;">
+                        <th scope="row">Clave</th>
+                        <td> {{ insumo.keySap }} </td>
+                    </tr>
+                    <!-- <tr>
+                <th scope="row">Marca</th>
+                <td *ngIf="matchingMarca &&  matchingMarca.name">{{ matchingMarca.name }}</td>
+                <!-- <td><img *ngIf="matchingMarca && matchingMarca.image" [src]="matchingMarca.image" alt="Imagen de la marca"></td> 
+              </tr> -->
+                    <tr style="text-align: center;">
+                        <th scope="row">Categoría</th>
+                        <td> {{ insumo.category }}</td>
+                    </tr>
+                    <!-- <tr style="text-align: center;">
+                <th scope="row">Sabor</th>
+                <td>{{ insumo.flavor }}</td>
+              </tr> -->
+                    <tr style="text-align: center;">
+                        <th scope="row">Contenido</th>
+                        <td>{{ insumo.contNeto }}</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <th scope="row">Presentación</th>
+                        <td>{{ insumo.salesUnit }}</td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <th scope="row">Medidas</th>
+                        <td> {{ insumo.width }}cm x {{ insumo.height }} cm </td>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <th scope="row">Peso</th>
+                        <td> {{ insumo.weight }}gr</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container my-4" id="contenedor-detalles-insumo">
+            <ul class="no-bullets">
+                <br>
+                <!-- <li><b>Certificaciones: </b> {{ insumo.certification }}</li>
+            <li><b>Observaciones: </b> {{insumo.observations}} </li> -->
+            </ul>
         </div>
     </div>
-</div>
 
-<div class="container d-flex flex-wrap justify-content-around align-items-center my-4">
-    <svg class="codeBar my-3" id="codeBarInsumo"></svg>
+    <div class="container d-flex flex-wrap justify-content-around align-items-center my-4">
+        <svg class="codeBar my-3" id="codeBarInsumo"></svg>
 
-    <div class="my-3">
-        <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
+        <div class="my-3">
+            <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
+        </div>
+
+        <div class="space" style="height: 1cm;"></div>
     </div>
-
-    <div class="space" style="height: 1cm;"></div>
-</div>
-

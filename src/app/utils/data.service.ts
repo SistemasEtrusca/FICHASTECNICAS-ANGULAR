@@ -10,6 +10,7 @@ export class DataService {
   maquinariaArray: any[] = []; // Propiedad para almacenar maquinariaArray
   insumosArray: any[] = [];// Propiedad para almacenar insumosArray
   accesoriosArray: any[] = [] //Propiedad para almacenar accesoriosArray
+  marcasArray: any[] = [] //Promiedad para almacenar el nombre de las marcas
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
   isLoading$ = this.loadingSubject.asObservable();
@@ -85,7 +86,7 @@ export class DataService {
 
       //console.log('Insumos como array de objetos:', this.insumosArray);
 
-      //console.log('Data obtenida:', this.data);
+      //console.log('Data obtenida:', this.data[3]);
       console.log(`
   ---------------------
  |                     |
@@ -150,12 +151,14 @@ export class DataService {
     const api1Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=3';
     const api2Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=4';
     const api3Url = 'https://sap.etrusca.shop/api/FichaTecnica?Depto=5';
+    const api4Marcas = 'https://lista-de-precios.cafeetrusca.com/api/v1/venta/marcas/0';
 
     const api1Promise = this.fetchDataFromApi(api1Url, 'insumos');
     const api2Promise = this.fetchDataFromApi(api2Url, 'accesorios');
     const api3Promise = this.fetchDataFromApi(api3Url, 'maquinaria');
+    const api4Promise = this.fetchDataFromApi(api4Marcas, 'marcas');
 
-    return Promise.all([api1Promise, api2Promise, api3Promise]);
+    return Promise.all([api1Promise, api2Promise, api3Promise, api4Promise]);
   }
 
   // Método para obtener la información procesada y formateada de maquinariaArray
@@ -206,6 +209,24 @@ export class DataService {
       } else {
         this.fetchAllDataFromApis().then(() => {
           resolve(this.accesoriosArray);
+        }).catch((error: any) => {
+          reject(error);
+        });
+      }
+    });
+  }
+
+   //Método para obtener la información procesada y formateada de MARCAS
+   getMarcas(): Promise<any[]> {
+    return new Promise<any[]>((resolve, reject) => {
+      const storedData = localStorage.getItem('data_marcas');
+
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        resolve(parsedData);
+      } else {
+        this.fetchAllDataFromApis().then(() => {
+          resolve(this.marcasArray);
         }).catch((error: any) => {
           reject(error);
         });
