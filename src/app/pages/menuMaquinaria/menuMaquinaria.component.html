@@ -1,18 +1,16 @@
 <div class="container">
-  <h2>Tabla de Máquinas</h2>
+  <h2 class="my-4">Tabla de Máquinas</h2>
   <table class="table table-bordered">
-    <thead>
+    <thead style="text-align: center;">
       <tr>
         <th>Nombre de la máquina</th>
-        <th>Marca</th>
-        <th>Keysap</th>
+        <th>Clave del producto</th>
       </tr>
     </thead>
     <tbody>
       <!-- Utilizamos *ngFor para iterar sobre maquinariaArray -->
       <tr *ngFor="let maquina of maquinariaArray">
         <td>{{ maquina.name }}</td>
-        <td>{{ maquina.brand }}</td>
         <!-- Utilizamos routerLink para generar el enlace dinámico -->
         <td><a [routerLink]="['/maquinaria', maquina.keySap]">{{ maquina.keySap }}</a></td>
       </tr>
