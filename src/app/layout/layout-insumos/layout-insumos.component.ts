@@ -3,6 +3,8 @@ import { CarouselComponent } from 'ngx-bootstrap/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/utils/data.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 import * as JsBarcode from 'jsbarcode';
 
@@ -24,6 +26,7 @@ export class LayoutInsumosComponent implements OnInit {
   matchingMarca: any;
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router,
@@ -119,20 +122,15 @@ export class LayoutInsumosComponent implements OnInit {
   }
   //Limpia las url de las imagenes del insumo
   extractUrlsFromString(input: string): void {
-    const cleanedInput = input
-      .replace(/\[|\]|'/g, ''); // Elimina '[' ']' y comillas simples
-
-    // Si cleanedInput contiene caracteres después de limpiar, consideramos que es una URL válida
+    const cleanedInput = input.replace(/\[|\]|'/g, ''); 
+  
     if (cleanedInput.trim().length > 0) {
-      const urls = cleanedInput
-        .split(',')
-        .map(url => url);
-      // console.log(urls);
-
-      this.extractedUrls = urls;
+      this.extractedUrls = cleanedInput.split(',').map(url => url.trim());
     } else {
-      this.extractedUrls = []; // No hay URLs válidas
+      this.extractedUrls = [];
     }
+  
+    this.cdr.detectChanges(); // 🔄 Fuerza la actualización de la vista
   }
 
   sanitizeUrl(url: string): SafeUrl {

@@ -1,8 +1,7 @@
 <div *ngIf="maquina">
   <header>
     <div class="d-flex justify-content-between align-items-center">
-      <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
-      <!-- <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Icon" id="icon-print"-->
+      <img src="https://cafeetrusca.com/img/logo_etrusca.webp?v=1.1" alt="☕ Logo" id="logo" class="logo">
     </div>
   </header>
 
@@ -10,11 +9,16 @@
     <div class="row">
       <div class="col-md-6">
         <div class="d-flex flex-column">
-          <h1 class="my-2" style="font-weight: 700;">{{ maquina.name }}</h1>
-          <h6 class="my-4">Descripción:</h6>
+          <h1 class="my-2" style="font-weight: 700;">🔧 {{ maquina.keySap }} {{ maquina.name }}</h1>
+          <h6 class="my-4">📄 Descripción:</h6>
           <p style="text-align: justify;">{{ maquina.description }}</p>
         </div>
+        <div class="d-flex flex-column">
+          <h6 class="my-4">📏 Medidas:</h6>
+          <p style="text-align: justify;">📐 {{ maquina.salesUnitLength }} x {{ maquina.width }} x {{ maquina.height }} cm</p>
+        </div>
       </div>
+
       <div class="col-md-6" id="imagenes-carrusel" [ngClass]="{'d-none': hideImages}">
         <carousel *ngIf="maquina && extractedUrls.length > 0">
           <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
@@ -22,80 +26,50 @@
           </slide>
         </carousel>
       </div>
+
       <div class="col-md-6" id="360" [ngClass]="{'d-none': hide360}">
-        <iframe [src]="maquina.urlIframe" class="container  d-flex flex-wrap justify-content-center" id="contenedor360"
-          frameborder="0"></iframe>
-      </div><br>
+        <iframe [src]="maquina.urlIframe" class="container d-flex flex-wrap justify-content-center" id="contenedor360" frameborder="0"></iframe>
+      </div>
 
       <table class="table my-5" style="text-align: center;">
         <thead class="table-dark">
           <tr>
-            <th colspan="2" style="text-align: center;">Características</th>
+            <th colspan="2" style="text-align: center;">⚙️ Características</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Clave</th>
-            <td> {{ maquina.keySap }} </td>
-          </tr>
-          <!-- <tr>
-             <th scope="row">Marca</th>
-             <td> {{ maquina.keySap }} </td> 
+            <th scope="row">🔑 Clave</th>
+            <td>{{ maquina.keySap }}</td>
           </tr>
           <tr>
-            <th scope="row">Modelo</th> 
-            <td> {{ maquina.model }}</td>
-          </tr> -->
-          <tr>
-            <th scope="row">Cateogría</th>
-            <td> {{ maquina.category }}</td>
-          </tr>
-          <!-- <tr>
-            <th scope="row">Subcategoría</th>
-            <td> {{ maquina.subCategory }} </td>
+            <th scope="row">📂 Categoría</th>
+            <td>{{ maquina.category }}</td>
           </tr>
           <tr>
-            <th scope="row">color</th>
-            <td> {{ maquina.color }} </td>
-          </tr> 
-          <tr>
-            <th scope="row">Voltaje</th>
-            <td> {{ maquina.voltage }} </td>
-          </tr> -->
-          <tr>
-            <th scope="row">Medidas</th>
-            <td>{{ maquina.width }}cm x {{ maquina.height }}cm</td>
+            <th scope="row">📏 Medidas</th>
+            <td>📐 {{ maquina.salesUnitLength }} x {{ maquina.width }} x {{ maquina.height }} cm</td>
           </tr>
           <tr>
-            <th scope="row">Peso</th>
-            <td> {{ maquina.weight }} gr </td>
+            <th scope="row">⚖️ Peso</th>
+            <td>{{ (maquina.weight / 1000) | number:'1.2-2' }} kg</td>
           </tr>
-          <!-- <tr>
-            <th scope="row"></th>
-            <td>  </td>
-          </tr> -->
         </tbody>
       </table>
-    
-
-
-
-
     </div>
   </div>
+
   <div class="container my-4" id="contenedor-detalles-maquina">
     <ul class="no-bullets">
-      <li><b> Garantía: </b> {{ maquina.warranty }} </li>
+      <li><b>🛡️ Garantía:</b> {{ maquina.warranty }}</li>
     </ul>
   </div>
 </div>
 
 <div class="container d-flex flex-wrap justify-content-around align-items-center my-4">
   <svg class="codeBar my-3" id="codeBar"></svg>
-
   <div class="my-3">
     <qr-code [value]="qrCodeUrl" size="200" errorCorrectionLevel="M" display="image"></qr-code>
   </div>
-
   <div class="space" style="height: 1cm;"></div>
 </div>

@@ -1,8 +1,7 @@
 <div *ngIf="insumo">
     <header>
         <div class="d-flex justify-content-between align-items-center">
-            <img src="https://i.postimg.cc/y8j19qhw/logo.png" alt="Logo" id="logo">
-            <!-- <img src="https://i.postimg.cc/kG6Dp3CM/imprimir-contorno-del-boton.png" alt="Logo" id="icon-print"> -->
+            <img src="https://cafeetrusca.com/img/logo_etrusca.webp?v=1.1" alt="Logo" id="logo" class="logo">
         </div>
     </header>
 
@@ -10,25 +9,38 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="d-flex flex-column">
-                    <h1 class="my-2" style="font-weight: 700; text-align: left;">{{ insumo.name }}</h1>
-                    <h6 class="my-4"><b>Descripción:</b></h6>
-                    <p style="text-align: justify">{{insumo.description}}</p>
+                    <h1 class="my-2" style="font-weight: 700; text-align: left;">📦 {{ insumo.keySap }} {{ insumo.name }}</h1>
+                    <h6 class="my-4"><b>📝 Ingredientes:</b></h6>
+                    <p style="text-align: justify">{{insumo.ingredients}}</p>
+                    
+                    <p style="text-align: justify">
+                        <img src="https://intranet.cafeetrusca.com/iconos/vegano.png" style="max-width: 25px;"> Vegano: {{insumo.vegan}}  |  
+                        <img src="https://intranet.cafeetrusca.com/iconos/vegetariano.png" style="max-width: 25px;"> Vegetariano: {{insumo.vegetarian}}  
+                    </p>
+                    
+                    <p style="text-align: justify">
+                        <img src="https://intranet.cafeetrusca.com/iconos/libre-de-alergenos.png" style="max-width: 25px;"> Alergenos: {{insumo.allergens}} 
+                    </p>
+
+                    <div *ngIf="insumo?.servings">
+                        <h6 class="my-4"><b>🍽️ Porciones:</b></h6>
+                        <p style="text-align: justify">{{ insumo.servings }}</p>
+                    </div>
                 </div>
             </div>
-            <!--mostrar imagenes-->
-            <div class="col-md-6  ">
+
+            <!-- Mostrar imágenes -->
+            <div class="col-md-6">
                 <div class="row">
-                    <!-- Carrusel principal -->
                     <div class="col-md-10">
-                        <carousel #carousel>
-                            <slide *ngFor="let url of extractedUrls" class="contenedor-imagen">
-                                <img [src]="sanitizeUrl(url)" class="d-block w-100" [alt]="'Imagen '" 
-                                [ngClass]="{'botella-torani': insumo.keySap.startsWith('IJA')}">
+                        <carousel *ngIf="extractedUrls && extractedUrls.length > 0">
+                            <slide *ngFor="let url of extractedUrls">
+                                <img [src]="sanitizeUrl(url)" class="d-block w-100" [alt]="'Imagen '" [ngClass]="{'botella-torani': insumo.keySap.startsWith('IJA')}">
                             </slide>
                         </carousel>
+                        <p *ngIf="!extractedUrls || extractedUrls.length === 0">🚫 No hay imágenes disponibles</p>
                     </div>
 
-                    <!-- Miniaturas en la derecha -->
                     <div class="col-md-2 d-none d-sm-block">
                         <div class="row">
                             <div class="col-12" *ngFor="let url of extractedUrls; let i = index">
@@ -44,43 +56,36 @@
             <table class="table my-5">
                 <thead class="table-dark">
                     <tr>
-                        <th colspan="2" style="text-align: center;">Más características</th>
+                        <th colspan="2" style="text-align: center;">📋 Más características</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="text-align: center;">
-                        <th scope="row">Clave</th>
-                        <td> {{ insumo.keySap }} </td>
+                        <th scope="row">🔑 Clave</th>
+                        <td>{{ insumo.keySap }}</td>
                     </tr>
-                    <!-- <tr>
-                <th scope="row">Marca</th>
-                <td *ngIf="matchingMarca &&  matchingMarca.name">{{ matchingMarca.name }}</td>
-                <!-- <td><img *ngIf="matchingMarca && matchingMarca.image" [src]="matchingMarca.image" alt="Imagen de la marca"></td> 
-              </tr> -->
                     <tr style="text-align: center;">
-                        <th scope="row">Categoría</th>
-                        <td> {{ insumo.category }}</td>
-                    </tr>
-                    <!-- <tr style="text-align: center;">
-                <th scope="row">Sabor</th>
-                <td>{{ insumo.flavor }}</td>
-              </tr> -->
-                    <tr style="text-align: center;">
-                        <th scope="row">Contenido</th>
+                        <th scope="row">📏 Contenido</th>
                         <td>{{ insumo.contNeto }}</td>
                     </tr>
                     <tr style="text-align: center;">
-                        <th scope="row">Presentación</th>
+                        <th scope="row">📦 Presentación</th>
                         <td>{{ insumo.salesUnit }}</td>
                     </tr>
                     <tr style="text-align: center;">
-                        <th scope="row">Medidas</th>
-                        <td> {{ insumo.width }}cm x {{ insumo.height }} cm </td>
+                        <th scope="row">📐 Medidas</th>
+                        <td>{{ insumo.width }}cm x {{ insumo.height }} cm</td>
                     </tr>
                     <tr style="text-align: center;">
-                        <th scope="row">Peso</th>
-                        <td> {{ insumo.weight }}gr</td>
+                        <th scope="row">⚖️ Peso</th>
+                        <td><ng-container *ngIf="insumo?.weight >= 1000; else gramos">
+                            {{ (insumo.weight / 1000) | number:'1.2-2' }} kg
+                        </ng-container>
+                        <ng-template #gramos>
+                             {{ insumo.weight }} gr
+                        </ng-template></td>
                     </tr>
+                
                 </tbody>
             </table>
         </div>
@@ -88,8 +93,6 @@
         <div class="container my-4" id="contenedor-detalles-insumo">
             <ul class="no-bullets">
                 <br>
-                <!-- <li><b>Certificaciones: </b> {{ insumo.certification }}</li>
-            <li><b>Observaciones: </b> {{insumo.observations}} </li> -->
             </ul>
         </div>
     </div>
@@ -103,3 +106,4 @@
 
         <div class="space" style="height: 1cm;"></div>
     </div>
+</div>

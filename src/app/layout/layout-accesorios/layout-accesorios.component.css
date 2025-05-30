@@ -34,3 +34,12 @@
     height: auto;
     /* Ajusta la altura automáticamente según el ancho */
 }
+.logo{
+    max-width: 4vw !important;
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+
+.h1, h1 {
+font-size: calc(1.375rem + 1vw) !important
+}

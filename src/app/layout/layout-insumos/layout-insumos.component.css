@@ -1,19 +1,23 @@
-/* Elimina los estilos de viñetas predeterminados */
-.no-bullets {
-    list-style-type: none;
+#contenedor-descripcion {
+    background-color: #D7762F47;
+    border-radius: 10px;
+    /* Border radius para redondear las esquinas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra: offsetX offsetY blurRadius color */
+    padding: 20px;
+    /* Opcional: Agregar un poco de espacio interno para el contenido */
 }
+
 
 /* Elimina los estilos de viñetas predeterminados */
 .no-bullets {
     list-style-type: none;
 }
 
-/* .contenedor-imagen {
-    max-width: 300px !important;
-    max-height: 300px !important;
-    min-width: 250px !important;
-    min-height: 250px !important;
-} */
+/* Elimina los estilos de viñetas predeterminados */
+.no-bullets {
+    list-style-type: none;
+}
 
 .contenedor-imagen {
     display: flex;
@@ -22,8 +26,7 @@
     height: 100%; /* Esto garantiza que las imágenes ocupen toda la altura de la diapositiva */
 }
 
-
-#codeBar {
+#codeBar-accesorio {
     width: 100%;
     /* Ajusta el ancho al 100% del contenedor */
     max-width: 300px;
@@ -32,11 +35,22 @@
     /* Ajusta la altura automáticamente según el ancho */
 }
 
+
 .d-none {
     display: none !important;
 }
 
 .botella-torani {
-    max-width: 200px !important;
-    max-height: 480px !important;
+    max-width: 120px !important;
+    max-height: 460px !important;
 }
+.logo{
+    max-width: 4vw !important;
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+
+.h1, h1 {
+font-size: calc(1.375rem + 1vw) !important
+}
+

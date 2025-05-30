@@ -80,6 +80,11 @@ export class DataService {
         height: item.height,
         certification: item.certification,
         ingredients: item.ingredients,
+        allergens :  item.allergens,
+        vegetarian : item.vegetarian,
+        vegan : item.vegan,
+        servings : item.servings,
+        specification_sheet : item.specification_sheet,
         //observations: item.observations,
         //ingredients: item.ingredients
       }));
